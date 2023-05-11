@@ -1,0 +1,88 @@
+.event-form > .event-date::placeholder {
+  color: #212529;
+}
+
+#datepicker {
+  padding: 1rem 0.75rem;
+  border-radius: 0.375rem;
+}
+
+.react-datepicker-popper {
+  z-index: 5 !important;
+}
+
+.event-form > .event-date {
+  height: calc(3.5rem + calc(1px * 2));
+  border: 1px solid #dee2e6;
+}
+
+.react-datepicker__view-calendar-icon input {
+  padding: 6px 10px 5px 25px;
+}
+
+.event {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000000;
+  padding: 21px 42px 25px 36px;
+  width: 872px;
+  border: 1px solid #000000;
+  border-radius: 12px;
+}
+
+.event-header {
+  padding: 10px 39px;
+  margin-bottom: 25px;
+  width: 198px;
+  font-size: 24px;
+  border: 1px solid #000000;
+  border-radius: 12px;
+}
+
+.right-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-description {
+  word-wrap: break-word;
+  word-break: break-word;
+  width: 517px;
+  height: 171px;
+
+  padding: 10px 12px 16px 19px;
+  border: 1px solid #000000;
+  border-radius: 12px;
+}
+
+.event-description > p {
+  max-width: 517px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+pre {
+  font-size: 18px !important;
+  font-weight: 500;
+  color: #000000;
+
+  white-space: pre-wrap;       /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.subscribe-section {
+  display: flex;
+  align-items: center;
+  margin-top: 23px;
+  width: min-content;
+  align-self: end;
+}
+
+.event-members {
+  margin-right: 16px;
+  margin-left: 16px;
+}
