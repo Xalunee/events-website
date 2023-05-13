@@ -5,12 +5,14 @@ import {
   collection,
   addDoc,
   getDoc,
+  setDoc,
+  deleteDoc,
   doc,
   where,
   onSnapshot,
   getDocs,
 } from "firebase/firestore";
-import { actions } from "../slices/usersSlice.js";
+import { actions } from "../slices/eventsSlice.js";
 
 const eventsCollection = collection(db, "events");
 
@@ -38,9 +40,9 @@ export const getEvents = async () => {
         id: event.id,
       };
     });
-    console.log(events)
     store.dispatch(actions.setEvents(events));
   });
+
   // const queryDocs = await getDocs(queryEvents);
   // const dataOfEvents = queryDocs.docs;
   // const events = dataOfEvents.map((data) => {
@@ -58,4 +60,23 @@ export const getEvents = async () => {
   //   return objectOfEntries
   // })
   // return events;
+};
+
+export const changeEvent = async (data) => {
+  try {
+    const eventRef = doc(db, "events", data.id); // получаем ссылку на объект пользователя 
+    await setDoc(eventRef, data); // изменяем документ
+  } catch (e) {
+    console.log("Изменить мероприятие не удалось");
+  }
+};
+
+export const removeEvent = async (data) => {
+  try {
+    const eventRef = doc(db, "events", data.id);
+    await deleteDoc(eventRef); // удаляем документ мероприятия
+    console.log("Мероприятие было успешно удалено");
+  } catch (e) {
+    console.log(("Удалить мероприятие не удалось"));
+  }
 };

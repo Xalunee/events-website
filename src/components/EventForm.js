@@ -21,12 +21,22 @@ export default function EventForm() {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long",
+      hour: "numeric",
+      minute: "numeric",
+      timezone: "UTC",
+    };
     const formattedData = {
       ...data,
-      date: date.toISOString(), // Перевод в строковое значение, для записи в базу данных и далее запись в хранилище
+      date: date.toLocaleString("ru", options), // Перевод в строковое значение, для записи в базу данных и далее запись в хранилище
       user: localStorage.token,
       members: [localStorage.token],
     };
+    console.log(formattedData);
     document.querySelector(".event-form").reset();
     const dataOfRegistration = await registerEvent(formattedData);
     alert("Мероприятие успешно создано!");
@@ -46,11 +56,12 @@ export default function EventForm() {
   return (
     <section className="d-flex justify-content-center text-center">
       <div
-        className="gap-3"
+        className="event-block"
         style={{
-          width: "396px",
-          paddingLeft: "10px",
-          paddingRight: "10px",
+          width: "450px",
+          paddingLeft: "30px",
+          paddingRight: "30px",
+          paddingBottom: "30px",
         }}
       >
         <h2 style={{ fontSize: "2rem", marginTop: "10px" }}>

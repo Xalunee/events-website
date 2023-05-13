@@ -36,7 +36,7 @@ export default function Header() {
             className="font-weight-bold"
             style={{ fontSize: "22px", fontWeight: "bold" }}
           >
-            {user ? user.firstname + " " + user.surname : "Войти"}
+            {user ? user.surname  + " " + user.firstname : "Войти"}
           </span>
         </button>
       </div>

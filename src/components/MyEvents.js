@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { subscribeToEvent } from "../services/event.js";
-import { changeEvent } from "../services/event.js";
+import { removeEvent } from "../services/event.js";
 
 const Home = () => {
   const currentEvents = useSelector((state) => state.events.events);
@@ -9,6 +9,7 @@ const Home = () => {
   return (
     <>
       {currentEvents.map((event) => (
+        event.user === localStorage.token ?
         <div className="event d-flex">
           <div className="left-section">
             <div className="event-header">
@@ -28,38 +29,20 @@ const Home = () => {
               <pre>{event.description}</pre>
             </div>
             <div className="subscribe-section">
-              {localStorage.token &&
-              event.members.includes(localStorage.token) ? (
-                <button
+              <button
                   type="button"
                   className="event-btn btn btn-outline-danger"
                   onClick={() => {
-                    const copyMembers = [...event.members];
-                    const userIndex = copyMembers.indexOf(localStorage.token);
-                    copyMembers.splice(userIndex, userIndex);
-                    changeEvent({...event, members: copyMembers})
+                    removeEvent(event);
                   }}
                 >
-                  Отсоединиться
+                  Удалить
                 </button>
-              ) : (
-                <button
-                  type="button"
-                  className="event-btn btn btn-outline-success"
-                  onClick={() => {
-                    const copyMembers = [...event.members];
-                    copyMembers.push(localStorage.token)
-                    changeEvent({...event, members: copyMembers})
-                  }}
-                >
-                  Присоединиться
-                </button>
-              )}
-
               <span className="event-members">{event.members.length}</span>
             </div>
           </div>
         </div>
+        : <></>
       ))}
     </>
   );

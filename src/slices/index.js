@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import eventsReducer from './usersSlice';
+import usersReducer from './usersSlice';
+import eventsReducer from './eventsSlice';
 
 export default configureStore({ // Конфигурируем общее хранилище, передаем туда редьюсеры
   reducer: {
-    events: eventsReducer
+    users: usersReducer,
+    events: eventsReducer,
   },
 });
