@@ -1,3 +1,20 @@
+.events-head {
+  width: 872px;
+  position: relative;
+}
+
+.event-settings {
+  position: absolute;
+  top: 10%;
+  right: 0;
+  height: 48px;
+  width: 48px;
+  bottom: 0;
+  background-image: url("./assets/settings-img.png");
+  background-size: cover;
+  border-color: #000000 !important;
+}
+
 .event-block {
   border: 1px solid #000000;
   border-radius: 12px;
@@ -58,7 +75,8 @@ input {
   width: 238px;
 }
 
-.event-date, .event-place {
+.event-date,
+.event-place {
   margin-bottom: 10px;
 }
 
@@ -94,14 +112,14 @@ pre {
   font-weight: 500;
   color: #000000;
 
-  white-space: pre-wrap;       /* Since CSS 2.1 */
-  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-  white-space: -pre-wrap;      /* Opera 4-6 */
-  white-space: -o-pre-wrap;    /* Opera 7 */
-  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
-.subscribe-section {
+.btns-section {
   display: flex;
   align-items: center;
   margin-top: 23px;
@@ -109,7 +127,17 @@ pre {
   align-self: end;
 }
 
+.btn-subscribe {
+  margin-left: 16px;
+}
+
 .event-members {
   margin-right: 16px;
   margin-left: 16px;
+}
+
+.form-show-events {
+  display: inline;
+  font-weight: 500;
+  margin-right: 15px;
 }

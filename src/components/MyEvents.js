@@ -28,10 +28,11 @@ const Home = () => {
             <div className="event-description">
               <pre>{event.description}</pre>
             </div>
-            <div className="subscribe-section">
+            <div className="btns-section">
+              <button type="button" className="btn-edit btn btn-outline-dark">Редактировать</button>
               <button
                   type="button"
-                  className="event-btn btn btn-outline-danger"
+                  className="btn-subscribe btn btn-outline-danger"
                   onClick={() => {
                     removeEvent(event);
                   }}

@@ -27,6 +27,9 @@ export default function Header() {
             Электроклуб г. Салават
           </h2>
         </div>
+        <div
+          className="d-flex"
+        >
         <button
           style={{ background: 0, border: 0 }}
           onClick={() => navigate(user ? "/profile" : "/login")}
@@ -36,9 +39,24 @@ export default function Header() {
             className="font-weight-bold"
             style={{ fontSize: "22px", fontWeight: "bold" }}
           >
-            {user ? user.surname  + " " + user.firstname : "Войти"}
+            {user ? user.surname + " " + user.firstname : "Войти"}
           </span>
         </button>
+        {user ? (
+          <button
+            style={{ background: 0, border: 0, fontSize: "22px", fontWeight: "bold", marginLeft: '20px' }}
+            onClick={() => {
+              localStorage.clear()
+              navigate("/login")
+          }}
+            color="inherit"
+          >
+            Выйти
+          </button>
+        ) : (
+          ""
+        )}
+        </div>
       </div>
     </header>
   );

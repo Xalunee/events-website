@@ -33,6 +33,7 @@ export default function EventForm() {
     const formattedData = {
       ...data,
       date: date.toLocaleString("ru", options), // Перевод в строковое значение, для записи в базу данных и далее запись в хранилище
+      dateNum: Date.parse(date),
       user: localStorage.token,
       members: [localStorage.token],
     };
@@ -139,8 +140,8 @@ export default function EventForm() {
             id="datepicker"
             placeholderText="Дата и время мероприятия"
             showTimeSelect
-            filterTime={filterPassedTime}
-            minDate={addDays(new Date(), 1)}
+            //filterTime={filterPassedTime}
+            minDate={addDays(new Date(), -7)}
             timeIntervals={1}
             dateFormat="d MMMM, yyyy г. h:mm"
           />
