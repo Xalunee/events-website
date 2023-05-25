@@ -1,3 +1,8 @@
+.home-page-head {
+  display: flex;
+  justify-content: center;
+}
+
 .events-head {
   width: 872px;
   position: relative;
@@ -15,9 +20,10 @@
   border-color: #000000 !important;
 }
 
-.event-block {
-  border: 1px solid #000000;
-  border-radius: 12px;
+.modal-content {
+  width: 450px !important;
+  border-radius: 12px !important;
+  border: 1px solid #000000 !important;
 }
 
 .event-form > .event-date::placeholder {
@@ -123,7 +129,7 @@ pre {
   display: flex;
   align-items: center;
   margin-top: 23px;
-  width: min-content;
+  width: max-content;
   align-self: end;
 }
 
@@ -136,8 +142,39 @@ pre {
   margin-left: 16px;
 }
 
-.form-show-events {
+.form-settings-header {
+  color: #ffffff;
+  background-color: #185870;
+}
+
+hr {
+  position: absolute;
+  left: 0;
+  width: 498px;
+  border-top: 1px solid #dee2e6 !important;
+  opacity: 100 !important;
+}
+
+.form-type-events > p {
+  margin: 0;
   display: inline;
   font-weight: 500;
   margin-right: 15px;
+}
+
+.form-range-events {
+  margin-top: 32px;
+}
+
+.form-range-events > p {
+  font-weight: 500;
+}
+
+.form-date-pickers {
+  display: flex;
+  column-gap: 10px;
+}
+
+.btn-create-event {
+  width: 872px;
 }

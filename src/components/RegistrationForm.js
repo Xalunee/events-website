@@ -145,19 +145,6 @@ export default function Form() {
                 "Максимум 12 символов"}
             </div>
           </div>
-          {/*<div className="form-floating">
-            <input
-              type="text"
-              className="form-control"
-              id="inputAge"
-              {...register("age", { required: true })}
-              placeholder="Возраст"
-            />
-            <label htmlFor="inputAge">Возраст *</label>
-            <div style={{ color: "red", textAlign: "left" }}>
-              {errors.age?.type === "required" && "Это поле обязательное"}
-            </div>
-            </div>*/}
           <button className="btn btn-dark">Зарегистрироваться</button>
           <span style={{ fontSize: "1rem", marginTop: "-10px" }}>
             У меня уже есть аккаунт <Link to="/login">Войти</Link>
