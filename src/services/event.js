@@ -66,7 +66,6 @@ export const changeEvent = async (data) => {
   try {
     const eventRef = doc(db, "events", data.id); // получаем ссылку на объект мероприятия
     await setDoc(eventRef, data); // изменяем документ
-    alert('Мероприятие было успешно изменено')
   } catch (e) {
     console.log("Изменить мероприятие не удалось");
   }

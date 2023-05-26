@@ -185,3 +185,9 @@ hr {
 .btn-create-event {
   width: 872px;
 }
+
+.btn-default-value {
+  margin: 8px 0;
+  height: 40px;
+  width: 40px;
+}

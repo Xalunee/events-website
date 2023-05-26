@@ -40,10 +40,16 @@ export default function ModalEdit(props) {
     document.querySelector(".event-form").reset();
   };
 
-  const [startDate, setStartDate] = useState(
-    setHours(setMinutes(addDays(new Date(), 1), 0), 9)
-  );
-  let date = startDate;
+  const event = props.event;
+  const [startDate, setStartDate] = useState(props.event.dateNum);
+  let chosenDate = startDate
+  ? startDate
+  : event.dateNum;
+  if (typeof chosenDate === "number") {
+    const formattedDate = new Date(chosenDate);
+    chosenDate = formattedDate;
+  }
+  let date = chosenDate;
   const filterPassedTime = (time) => {
     const currentDate = addDays(new Date(), 1);
     const selectedDate = new Date(time);
@@ -82,7 +88,7 @@ export default function ModalEdit(props) {
                   maxLength: 15,
                 })}
                 placeholder="Название мероприятия *"
-                defaultValue={props.event.name}
+                defaultValue={event.name}
               />
               <label htmlFor="inputName">Название мероприятия *</label>
               <div style={{ color: "red", textAlign: "left" }}>
@@ -102,13 +108,14 @@ export default function ModalEdit(props) {
                 rows="3"
                 style={{ height: "200px" }}
                 placeholder="Описание мероприятия *"
-                defaultValue={props.event.description}
+                defaultValue={event.description}
               />
               <label htmlFor="textarea">Описание мероприятия *</label>
               <div style={{ color: "red", textAlign: "left" }}>
                 {errors.description?.type === "required" &&
                   "Это поле обязательное"}
-                {errors.description?.type === "minLength" && "Минимум 6 символов"}
+                {errors.description?.type === "minLength" &&
+                  "Минимум 6 символов"}
               </div>
             </div>
             <div className="form-floating">
@@ -122,7 +129,7 @@ export default function ModalEdit(props) {
                   maxLength: 60,
                 })}
                 placeholder="Место мероприятия *"
-                defaultValue={props.event.place}
+                defaultValue={event.place}
               />
               <label htmlFor="inputPlace">Место мероприятия *</label>
               <div style={{ color: "red", textAlign: "left" }}>
@@ -135,7 +142,7 @@ export default function ModalEdit(props) {
               locale="ru"
               className="event-date w-100"
               style={{ height: "58px" }}
-              selected={props.event.dateNum}
+              selected={chosenDate}
               onChange={(date) => setStartDate(date)}
               showIcon
               id="datepicker"

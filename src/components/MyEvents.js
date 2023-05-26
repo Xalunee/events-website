@@ -64,7 +64,11 @@ const Home = () => {
               </div>
               <span className="event-members">Пойдут на мероприятие: {event.members.length}</span>
             </div>
-            <ModalEdit show={modalShow} event={currentEvent} onHide={() => setModalShow(false)} />
+            <ModalEdit show={modalShow} event={currentEvent} onHide={() => {
+              document.querySelector('#inputPlace').defaultValue = '';
+              console.log(document.querySelector('#inputPlace'))
+              setModalShow(false)
+            }} />
           </div>
         ) : (
           <></>
