@@ -64,8 +64,9 @@ export const getEvents = async () => {
 
 export const changeEvent = async (data) => {
   try {
-    const eventRef = doc(db, "events", data.id); // получаем ссылку на объект пользователя 
+    const eventRef = doc(db, "events", data.id); // получаем ссылку на объект мероприятия
     await setDoc(eventRef, data); // изменяем документ
+    alert('Мероприятие было успешно изменено')
   } catch (e) {
     console.log("Изменить мероприятие не удалось");
   }
@@ -73,6 +74,7 @@ export const changeEvent = async (data) => {
 
 export const removeEvent = async (data) => {
   try {
+    console.log(data)
     const eventRef = doc(db, "events", data.id);
     await deleteDoc(eventRef); // удаляем документ мероприятия
     console.log("Мероприятие было успешно удалено");

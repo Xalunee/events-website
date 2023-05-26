@@ -70,9 +70,8 @@ const Home = () => {
                         Я пойду
                       </button>
                     )}
-  
-                    <span className="event-members">{event.members.length}</span>
                   </div>
+                  <span className="event-members">Пойдут на мероприятие: {event.members.length}</span>
                 </div>
               </div>
             )
@@ -134,8 +133,8 @@ const Home = () => {
                       </button>
                     )}
   
-                    <span className="event-members">{event.members.length}</span>
                   </div>
+                  <span className="event-members">Пойдут на мероприятие: {event.members.length}</span>
                 </div>
               </div>
             )
@@ -169,9 +168,7 @@ const Home = () => {
                   <div className="event-description">
                     <pre>{event.description}</pre>
                   </div>
-                  <div className="btns-section">
-                    <span className="event-members">{event.members.length}</span>
-                  </div>
+                  <span className="event-members">Было на мероприятии: {event.members.length}</span>
                 </div>
               </div>
             )
@@ -202,9 +199,7 @@ const Home = () => {
                   <div className="event-description">
                     <pre>{event.description}</pre>
                   </div>
-                  <div className="btns-section">
-                    <span className="event-members">{event.members.length}</span>
-                  </div>
+                  <span className="event-members">{event.members.length}</span>
                 </div>
               </div>
             )
