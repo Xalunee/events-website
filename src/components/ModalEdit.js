@@ -9,14 +9,25 @@ import setMinutes from "date-fns/setMinutes";
 import addDays from "date-fns/addDays";
 import { changeEvent } from "../services/event.js";
 import Modal from "react-bootstrap/Modal";
+import { useEffect } from "react";
 registerLocale("ru", ru); // register it with the name you want
 
 export default function ModalEdit(props) {
+  const { event } = props;
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: event.name,
+      description: event.description,
+      place: event.place
+    }
+  });
+
   const onSubmit = async (data) => {
     const options = {
       year: "numeric",
@@ -40,7 +51,6 @@ export default function ModalEdit(props) {
     document.querySelector(".event-form").reset();
   };
 
-  const event = props.event;
   const [startDate, setStartDate] = useState(props.event.dateNum);
   let chosenDate = startDate
   ? startDate
@@ -56,6 +66,13 @@ export default function ModalEdit(props) {
 
     return currentDate.getTime() < selectedDate.getTime();
   };
+
+  useEffect(() => {
+    setValue("name", event.name);
+    setValue("description", event.description);
+    setValue("place", event.place);
+    setStartDate(props.event.dateNum);
+  }, [event]);
 
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
@@ -82,13 +99,12 @@ export default function ModalEdit(props) {
                 type="text"
                 className="form-control"
                 id="inputName"
+                placeholder="Название мероприятия *"
                 {...register("name", {
                   required: true,
                   minLength: 6,
                   maxLength: 15,
                 })}
-                placeholder="Название мероприятия *"
-                defaultValue={event.name}
               />
               <label htmlFor="inputName">Название мероприятия *</label>
               <div style={{ color: "red", textAlign: "left" }}>
@@ -108,7 +124,6 @@ export default function ModalEdit(props) {
                 rows="3"
                 style={{ height: "200px" }}
                 placeholder="Описание мероприятия *"
-                defaultValue={event.description}
               />
               <label htmlFor="textarea">Описание мероприятия *</label>
               <div style={{ color: "red", textAlign: "left" }}>
@@ -129,7 +144,6 @@ export default function ModalEdit(props) {
                   maxLength: 60,
                 })}
                 placeholder="Место мероприятия *"
-                defaultValue={event.place}
               />
               <label htmlFor="inputPlace">Место мероприятия *</label>
               <div style={{ color: "red", textAlign: "left" }}>

@@ -7,7 +7,7 @@ const Home = () => {
   const [modalShow, setModalShow] = useState(false);
   return (
     <>
-      <Header></Header>
+      <Header />
       <h1 className="text-center mt-3">Мои мероприятия</h1>
       <div className="d-flex flex-column align-items-center gap-5 pb-5">
         <button
@@ -18,7 +18,7 @@ const Home = () => {
           Создать мероприятие
         </button>
         <EventForm show={modalShow} onHide={() => setModalShow(false)} />
-        <MyEvents></MyEvents>
+        <MyEvents />
       </div>
       <div className="pb-5"></div>
     </>

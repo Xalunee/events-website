@@ -14,7 +14,7 @@ const Home = () => {
     <>
       {currentEvents.map((event) =>
         event.user === localStorage.token ? (
-          <div className="event d-flex">
+          <div className="event d-flex" key={event.id}>
             <div className="left-section">
               <div className="event-header">
                 <h3>{event.name}</h3>
@@ -64,11 +64,11 @@ const Home = () => {
               </div>
               <span className="event-members">Пойдут на мероприятие: {event.members.length}</span>
             </div>
-            <ModalEdit show={modalShow} event={currentEvent} onHide={() => {
+            {currentEvent && <ModalEdit show={modalShow} event={currentEvent} onHide={() => {
               document.querySelector('#inputPlace').defaultValue = '';
               console.log(document.querySelector('#inputPlace'))
               setModalShow(false)
-            }} />
+            }} />}
           </div>
         ) : (
           <></>
