@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { subscribeToEvent } from "../services/event.js";
 import { removeEvent } from "../services/event.js";
 import ModalEdit from "./ModalEdit.js";
 
@@ -65,8 +64,6 @@ const Home = () => {
               <span className="event-members">Пойдут на мероприятие: {event.members.length}</span>
             </div>
             {currentEvent && <ModalEdit show={modalShow} event={currentEvent} onHide={() => {
-              document.querySelector('#inputPlace').defaultValue = '';
-              console.log(document.querySelector('#inputPlace'))
               setModalShow(false)
             }} />}
           </div>

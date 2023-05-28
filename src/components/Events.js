@@ -78,7 +78,7 @@ const Home = () => {
           }
           if (!dateRange && event.dateNum > Date.parse(dateNow)) {
             return (
-              <div className="event d-flex">
+              <div className="event d-flex" key={event.id}>
                 <div className="left-section">
                   <div className="event-header">
                     <h3>{event.name}</h3>
@@ -144,7 +144,7 @@ const Home = () => {
         : allEvents.map((event) => {
           if (dateRange && event.dateNum > dateRange[0] && event.dateNum < dateRange[1]) {
             return (
-              <div className="event d-flex">
+              <div className="event d-flex" key={event.id}>
                 <div className="left-section">
                   <div className="event-header">
                     <h3>{event.name}</h3>
@@ -175,7 +175,7 @@ const Home = () => {
           }
           if (!dateRange && event.dateNum < Date.parse(dateNow)) {
             return (
-              <div className="event d-flex">
+              <div className="event d-flex" key={event.id}>
                 <div className="left-section">
                   <div className="event-header">
                     <h3>{event.name}</h3>

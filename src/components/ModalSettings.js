@@ -2,10 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import DatePicker, { registerLocale } from "react-datepicker";
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
+import DatePicker from "react-datepicker";
 import addDays from "date-fns/addDays";
 
 export default function ModalSettings(props) {
@@ -142,7 +139,6 @@ export default function ModalSettings(props) {
               type="button"
               className="btn-default-value btn btn-outline-info"
               onClick={() => {
-                console.log(currentTypeOfEvent);
                 if (currentTypeOfEvent === "Текущие") {
                   setDateRange([
                     addDays(new Date(), 0),
