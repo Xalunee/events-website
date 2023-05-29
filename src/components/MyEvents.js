@@ -18,13 +18,14 @@ const Home = () => {
               <div className="event-header">
                 <h3>{event.name}</h3>
               </div>
-              <p className="event-date">Дата и время: {event.date}</p>
-              <p className="event-place">Место: {event.place}</p>
+              <p className="event-date">Дата и время: <span style={{fontWeight: "400"}}>{event.date}</span></p>
+              <p className="event-place">Место: <span style={{fontWeight: "400"}}>{event.place}</span></p>
               <p className="event-organizer">
-                Организатор:{" "}
+                Организатор:<span style={{fontWeight: "400"}}>{" "}
                 {currentUsers.find((user) => user.id === event.user).surname}{" "}
                 {currentUsers.find((user) => user.id === event.user).firstname}{" "}
                 {currentUsers.find((user) => user.id === event.user).patronymic}
+                </span>
               </p>
             </div>
             <div className="right-section">

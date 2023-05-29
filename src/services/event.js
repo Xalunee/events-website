@@ -81,3 +81,8 @@ export const removeEvent = async (data) => {
     console.log(("Удалить мероприятие не удалось"));
   }
 };
+
+export const cutDescription = (describtion) => {
+  const result = describtion.slice(0, 35);
+  return `${result}...`;
+};

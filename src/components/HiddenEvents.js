@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { subscribeToEvent } from "../services/event.js";
+import { cutDescription, subscribeToEvent } from "../services/event.js";
 import { changeEvent } from "../services/event.js";
 
-const Events = () => {
+const HiddenEvents = () => {
   const dateNow = new Date();
   const allEvents = useSelector((state) => state.events.events);
   const currentUsers = useSelector((state) => state.users.users);
@@ -31,26 +31,14 @@ const Events = () => {
                       <h3>{event.name}</h3>
                     </div>
                     <p className="event-date">Дата и время: <span style={{fontWeight: "400"}}>{event.date}</span></p>
-                    <p className="event-place">Место: <span style={{fontWeight: "400"}}>{event.place}</span></p>
+                    <p className="event-place">Место: ...</p>
                     <p className="event-organizer">
-                      Организатор:<span style={{fontWeight: "400"}}>{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .surname
-                      }{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .firstname
-                      }{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .patronymic
-                      }</span>
+                      Организатор: ...
                     </p>
                   </div>
                   <div className="right-section">
                     <div className="event-description">
-                      <pre>{event.description}</pre>
+                      <pre>{cutDescription(event.description)}</pre>
                     </div>
                     <div className="btns-section">
                       {localStorage.token &&
@@ -100,26 +88,14 @@ const Events = () => {
                       <h3>{event.name}</h3>
                     </div>
                     <p className="event-date">Дата и время: <span style={{fontWeight: "400"}}>{event.date}</span></p>
-                    <p className="event-place">Место: <span style={{fontWeight: "400"}}>{event.place}</span></p>
+                    <p className="event-place">Место: ...</p>
                     <p className="event-organizer">
-                      Организатор:<span style={{fontWeight: "400"}}>{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .surname
-                      }{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .firstname
-                      }{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .patronymic
-                      }</span>
+                      Организатор: ...
                     </p>
                   </div>
                   <div className="right-section">
                     <div className="event-description">
-                      <pre>{event.description}</pre>
+                      <pre>{cutDescription(event.description)}</pre>
                     </div>
                     <div className="btns-section">
                       {localStorage.token &&
@@ -176,24 +152,12 @@ const Events = () => {
                     <p className="event-date">Дата и время: <span style={{fontWeight: "400"}}>{event.date}</span></p>
                     <p className="event-place">Место: <span style={{fontWeight: "400"}}>{event.place}</span></p>
                     <p className="event-organizer">
-                      Организатор:<span style={{fontWeight: "400"}}>{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .surname
-                      }{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .firstname
-                      }{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .patronymic
-                      }</span>
+                      Организатор: ...
                     </p>
                   </div>
                   <div className="right-section">
                     <div className="event-description">
-                      <pre>{event.description}</pre>
+                      <pre>{cutDescription(event.description)}</pre>
                     </div>
                     <span className="event-members">
                       Было на мероприятии: {event.members.length}
@@ -214,24 +178,12 @@ const Events = () => {
                     <p className="event-date">Дата и время: <span style={{fontWeight: "400"}}>{event.date}</span></p>
                     <p className="event-place">Место: <span style={{fontWeight: "400"}}>{event.place}</span></p>
                     <p className="event-organizer">
-                      Организатор:<span style={{fontWeight: "400"}}>{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .surname
-                      }{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .firstname
-                      }{" "}
-                      {
-                        currentUsers.find((user) => user.id === event.user)
-                          .patronymic
-                      }</span>
+                      Организатор: ...
                     </p>
                   </div>
                   <div className="right-section">
                     <div className="event-description">
-                      <pre>{event.description}</pre>
+                      <pre>{cutDescription(event.description)}</pre>
                     </div>
                     <span className="event-members">
                       {event.members.length}
@@ -245,4 +197,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default HiddenEvents;

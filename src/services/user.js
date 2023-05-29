@@ -62,14 +62,14 @@ export const getUserFromDB = async () => {
 };
 
 export const getUserFromLocalStorage = () => {
-  if (localStorage.length === 0) {
-    return undefined;
-  }
+  if (localStorage.firstname && localStorage.surname) {
+    const user = {
+      firstname: localStorage.firstname,
+      surname: localStorage.surname,
+    };
   
-  const user = {
-    firstname: localStorage.firstname,
-    surname: localStorage.surname,
-  };
+    return user;
+  }
 
-  return user;
+  return undefined;
 };
