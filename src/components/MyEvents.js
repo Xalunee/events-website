@@ -5,10 +5,10 @@ import ModalEdit from "./ModalEdit.js";
 
 const Home = () => {
   const [currentEvent, setCurrentEvent] = useState('');
+  const [modalShow, setModalShow] = useState(false);
   const dateNow = new Date();
   const currentEvents = useSelector((state) => state.events.events);
   const currentUsers = useSelector((state) => state.users.users);
-  const [modalShow, setModalShow] = useState(false);
   return (
     <>
       {currentEvents.map((event) =>

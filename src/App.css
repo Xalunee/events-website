@@ -143,6 +143,10 @@ pre {
   width: 517px !important;
 }
 
+#block {
+  display: block !important;
+}
+
 .event-members {
   margin-top: 10px;
   align-self: flex-end;

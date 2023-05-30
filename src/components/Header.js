@@ -1,12 +1,17 @@
 import React from "react";
-import { useForm } from "react-hook-form";
 import { getUserFromLocalStorage, registerUser } from "../services/user.js";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Header() {
   const navigate = useNavigate();
   const user = getUserFromLocalStorage();
+  const currentUsers = useSelector((state) => state.users.users);
+  const currentUser = currentUsers.find(
+    (user) => user.id === localStorage.token
+  );
+  const isAdmin = currentUser && currentUser.admin === true ? true : false;
+  const adminText = isAdmin ? "(Админ)" : "";
 
   return (
     <header
@@ -27,35 +32,40 @@ export default function Header() {
             Электроклуб г. Салават
           </h2>
         </div>
-        <div
-          className="d-flex"
-        >
-        <button
-          style={{ background: 0, border: 0 }}
-          onClick={() => navigate(user ? "/profile" : "/login")}
-          color="inherit"
-        >
-          <span
-            className="font-weight-bold"
-            style={{ fontSize: "22px", fontWeight: "bold" }}
-          >
-            {user ? user.surname + " " + user.firstname : "Войти"}
-          </span>
-        </button>
-        {user ? (
+        <a href="#">Пользователи</a>
+        <div className="d-flex">
           <button
-            style={{ background: 0, border: 0, fontSize: "22px", fontWeight: "bold", marginLeft: '20px' }}
-            onClick={() => {
-              localStorage.clear()
-              navigate("/login")
-          }}
+            style={{ background: 0, border: 0 }}
+            onClick={() => navigate(user ? "/profile" : "/login")}
             color="inherit"
           >
-            Выйти
+            <span
+              className="font-weight-bold"
+              style={{ fontSize: "22px", fontWeight: "bold" }}
+            >
+              {user ? user.surname + " " + user.firstname + " " + adminText : "Войти"}
+            </span>
           </button>
-        ) : (
-          ""
-        )}
+          {user ? (
+            <button
+              style={{
+                background: 0,
+                border: 0,
+                fontSize: "22px",
+                fontWeight: "bold",
+                marginLeft: "20px",
+              }}
+              onClick={() => {
+                localStorage.clear();
+                navigate("/login");
+              }}
+              color="inherit"
+            >
+              Выйти
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </header>

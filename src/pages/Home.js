@@ -4,6 +4,8 @@ import HiddenEvents from "../components/HiddenEvents";
 import Events from "../components/Events";
 import Button from "react-bootstrap/Button";
 import ModalSettings from "../components/ModalSettings";
+import { useSelector } from "react-redux";
+import AdminEvents from "../components/AdminEvents";
 
 const Home = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -14,6 +16,11 @@ const Home = () => {
         ? "Текущие мероприятия"
         : "Архив мероприятий";
   }
+  const currentUsers = useSelector((state) => state.users.users);
+  const currentUser = currentUsers.find(
+    (user) => user.id === localStorage.token
+  );
+  const isAdmin = currentUser && currentUser.admin === true ? true : false;
   return (
     <>
       <Header></Header>
@@ -58,7 +65,7 @@ const Home = () => {
         )}
         <div className="d-flex flex-column align-items-center gap-5 pb-5">
           {localStorage.firstname ? (
-            <Events></Events>
+            isAdmin ? <AdminEvents></AdminEvents> : <Events></Events>
           ) : (
             <HiddenEvents></HiddenEvents>
           )}

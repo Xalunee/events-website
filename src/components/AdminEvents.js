@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { subscribeToEvent } from "../services/event.js";
+import { removeEvent } from "../services/event.js";
 import { changeEvent } from "../services/event.js";
+import ModalEdit from "./ModalEdit.js";
 
-const Events = () => {
+const AdminEvents = () => {
+  const [currentEvent, setCurrentEvent] = useState("");
+  const [modalShow, setModalShow] = useState(false);
   const dateNow = new Date();
   const allEvents = useSelector((state) => state.events.events);
   const currentUsers = useSelector((state) => state.users.users);
@@ -61,7 +65,7 @@ const Events = () => {
                     <div className="event-description">
                       <pre>{event.description}</pre>
                     </div>
-                    <div className="btns-section">
+                    <div className="btns-section" id="block">
                       {localStorage.token &&
                       event.members.includes(localStorage.token) ? (
                         <button
@@ -91,6 +95,32 @@ const Events = () => {
                           Я пойду
                         </button>
                       )}
+                      <div className="btns-section">
+                        <button
+                          type="button"
+                          className="btn-edit btn btn-outline-dark"
+                          onClick={() => {
+                            setModalShow(true);
+                            setCurrentEvent(event);
+                          }}
+                        >
+                          Редактировать
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-outline-danger btn-block ml-3"
+                          onClick={() => {
+                            removeEvent(event);
+                          }}
+                          style={
+                            event.dateNum < Date.parse(dateNow)
+                              ? { width: "517px" }
+                              : { width: "48%" }
+                          }
+                        >
+                          Удалить
+                        </button>
+                      </div>
                     </div>
                     <span className="event-members">
                       Пойдут на мероприятие: {event.members.length}
@@ -139,7 +169,7 @@ const Events = () => {
                     <div className="event-description">
                       <pre>{event.description}</pre>
                     </div>
-                    <div className="btns-section">
+                    <div className="btns-section" id="block">
                       {localStorage.token &&
                       event.members.includes(localStorage.token) ? (
                         <button
@@ -169,6 +199,32 @@ const Events = () => {
                           Я пойду
                         </button>
                       )}
+                      <div className="btns-section">
+                        <button
+                          type="button"
+                          className="btn-edit btn btn-outline-dark"
+                          onClick={() => {
+                            setModalShow(true);
+                            setCurrentEvent(event);
+                          }}
+                        >
+                          Редактировать
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-outline-danger btn-block ml-3"
+                          onClick={() => {
+                            removeEvent(event);
+                          }}
+                          style={
+                            event.dateNum < Date.parse(dateNow)
+                              ? { width: "517px" }
+                              : { width: "48%" }
+                          }
+                        >
+                          Удалить
+                        </button>
+                      </div>
                     </div>
                     <span className="event-members">
                       Пойдут на мероприятие: {event.members.length}
@@ -222,6 +278,30 @@ const Events = () => {
                     <div className="event-description">
                       <pre>{event.description}</pre>
                     </div>
+                    <div className="btns-section" id="block">
+                      <div className="btns-section">
+                        <button
+                          type="button"
+                          className="btn-edit btn btn-outline-dark"
+                          onClick={() => {
+                            setModalShow(true);
+                            setCurrentEvent(event);
+                          }}
+                        >
+                          Редактировать
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-outline-danger btn-block ml-3"
+                          onClick={() => {
+                            removeEvent(event);
+                          }}
+                          style={{ width: "48%" }}
+                        >
+                          Удалить
+                        </button>
+                      </div>
+                    </div>
                     <span className="event-members">
                       Было на мероприятии: {event.members.length}
                     </span>
@@ -269,6 +349,28 @@ const Events = () => {
                     <div className="event-description">
                       <pre>{event.description}</pre>
                     </div>
+                    <div className="btns-section">
+                      <button
+                        type="button"
+                        className="btn-edit btn btn-outline-dark"
+                        onClick={() => {
+                          setModalShow(true);
+                          setCurrentEvent(event);
+                        }}
+                      >
+                        Редактировать
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-outline-danger btn-block ml-3"
+                        onClick={() => {
+                          removeEvent(event);
+                        }}
+                        style={{ width: "48%" }}
+                      >
+                        Удалить
+                      </button>
+                    </div>
                     <span className="event-members">
                       {event.members.length}
                     </span>
@@ -277,8 +379,17 @@ const Events = () => {
               );
             }
           })}
+      {currentEvent && (
+        <ModalEdit
+          show={modalShow}
+          event={currentEvent}
+          onHide={() => {
+            setModalShow(false);
+          }}
+        />
+      )}
     </>
   );
 };
 
-export default Events;
+export default AdminEvents;
