@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import Admin from "./pages/Admin";
 import { useEffect } from "react";
 import { fetchUsers } from "./services/users";
 import { getEvents } from "./services/event";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/admin" element={<Admin />}></Route>
         </Routes>
       </BrowserRouter>
     </Provider>

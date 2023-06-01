@@ -1,6 +1,6 @@
 import React from "react";
 import { getUserFromLocalStorage, registerUser } from "../services/user.js";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Header() {
@@ -10,7 +10,7 @@ export default function Header() {
   const currentUser = currentUsers.find(
     (user) => user.id === localStorage.token
   );
-  const isAdmin = currentUser && currentUser.admin === true ? true : false;
+  const isAdmin = currentUser && currentUser.role === 'admin' ? true : false;
   const adminText = isAdmin ? "(Админ)" : "";
 
   return (
@@ -32,7 +32,7 @@ export default function Header() {
             Электроклуб г. Салават
           </h2>
         </div>
-        <a href="#">Пользователи</a>
+        {isAdmin ? <NavLink to="/admin" className="link">Пользователи</NavLink> : ''}
         <div className="d-flex">
           <button
             style={{ background: 0, border: 0 }}
@@ -41,7 +41,7 @@ export default function Header() {
           >
             <span
               className="font-weight-bold"
-              style={{ fontSize: "22px", fontWeight: "bold" }}
+              style={{ fontSize: "22px", fontWeight: "500" }}
             >
               {user ? user.surname + " " + user.firstname + " " + adminText : "Войти"}
             </span>

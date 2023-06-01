@@ -20,7 +20,7 @@ const Home = () => {
   const currentUser = currentUsers.find(
     (user) => user.id === localStorage.token
   );
-  const isAdmin = currentUser && currentUser.admin === true ? true : false;
+  const isAdmin = currentUser && currentUser.role === 'admin' ? true : false;
   return (
     <>
       <Header></Header>

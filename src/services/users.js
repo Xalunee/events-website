@@ -28,36 +28,44 @@ export const fetchUsers = async () => {
   });
 };
 
-// export const updateUser = async (data, id) => {
-//   try {
-//     const userRef = doc(db, "users", id);
-//     await setDoc(userRef, data);
-//     toast.success("Пользователь был успешно изменен");
-//   } catch (e) {
-//     console.log(e);
-//     toast.error("Изменить пользователя не удалось");
-//   }
-// };
+export const updateUser = async (data, id) => {
+  try {
+    const userRef = doc(db, "users", id);
+    await setDoc(userRef, data);
+    console.log("Пользователь был успешно изменен");
+  } catch (e) {
+    console.log(e);
+    console.log("Изменить пользователя не удалось");
+  }
+};
 
-// export const removeUser = async (id) => {
-//   try {
-//     const userRef = doc(db, "users", id);
-//     const chatsCollection = collection(db, "chat");
-//     const chats = await getDocs(chatsCollection);
-//     chats.forEach(async (chat) => {
-//       const { messages } = chat.data();
-//       const newMessages = messages.filter(msg => msg.author.id !== id);
+export const removeUser = async (id) => {
+  // try {
+  //   const userRef = doc(db, "users", id);
+  //   const chatsCollection = collection(db, "users");
+  //   const chats = await getDocs(chatsCollection);
+  //   chats.forEach(async (chat) => {
+  //     const { messages } = chat.data();
+  //     const newMessages = messages.filter(msg => msg.author.id !== id);
 
-//       if (newMessages.length < messages.length) {
-//         await updateDoc(chat.ref, {
-//           messages: newMessages
-//         });
-//       }
+  //     if (newMessages.length < messages.length) {
+  //       await updateDoc(chat.ref, {
+  //         messages: newMessages
+  //       });
+  //     }
 
-//     });
-//     await deleteDoc(userRef);
-//     toast.success("Пользователь был успешно удален");
-//   } catch (e) {
-//     toast.error(i18next.t("Удалить пользователя не удалось"));
-//   }
-// };
+  //   });
+  //   await deleteDoc(userRef);
+  //   console.log("Пользователь был успешно удален");
+  // } catch (e) {
+  //   console.log(("Удалить пользователя не удалось"));
+  // }
+
+  try {
+    const userRef = doc(db, "users", id);
+    await deleteDoc(userRef); // удаляем документ мероприятия
+    console.log("Мероприятие было успешно удалено");
+  } catch (e) {
+    console.log(("Удалить мероприятие не удалось"));
+  }
+};
