@@ -1,5 +1,5 @@
 import React from "react";
-import { getUserFromLocalStorage, registerUser } from "../services/user.js";
+import { getUserFromLocalStorage } from "../services/user.js";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -10,7 +10,7 @@ export default function Header() {
   const currentUser = currentUsers.find(
     (user) => user.id === localStorage.token
   );
-  const isAdmin = currentUser && currentUser.role === 'admin' ? true : false;
+  const isAdmin = currentUser && currentUser.role === "admin" ? true : false;
   const adminText = isAdmin ? "(Админ)" : "";
 
   return (
@@ -23,19 +23,32 @@ export default function Header() {
           <img
             style={{ width: "54px" }}
             src={require("../assets/logo-main.png")}
+            alt="Иконка"
           />
-          <h2
-            className="align-self-center"
-            style={{ fontSize: "26px", marginLeft: "15px" }}
-            onClick={() => navigate("/")}
+          <NavLink
+            to="/"
+            className="link align-self-center"
+            style={{
+              fontSize: "26px",
+              marginLeft: "15px",
+              marginBottom: "4px",
+            }}
           >
             Электроклуб г. Салават
-          </h2>
+          </NavLink>
         </div>
-        {isAdmin ? <NavLink to="/admin" className="link">Пользователи</NavLink> : ''}
+        {isAdmin ? (
+          <NavLink to="/admin" className="link">
+            Пользователи
+          </NavLink>
+        ) : (
+          ""
+        )}
         <div className="d-flex">
-          <button
-            style={{ background: 0, border: 0 }}
+          <NavLink
+            to={user ? "/profile" : "/login"}
+            className="link"
+            style={{ background: 0, border: 0, marginBottom: "4px" }}
             onClick={() => navigate(user ? "/profile" : "/login")}
             color="inherit"
           >
@@ -43,9 +56,11 @@ export default function Header() {
               className="font-weight-bold"
               style={{ fontSize: "22px", fontWeight: "500" }}
             >
-              {user ? user.surname + " " + user.firstname + " " + adminText : "Войти"}
+              {user
+                ? user.surname + " " + user.firstname + " " + adminText
+                : "Войти"}
             </span>
-          </button>
+          </NavLink>
           {user ? (
             <button
               style={{
