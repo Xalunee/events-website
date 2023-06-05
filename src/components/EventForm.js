@@ -10,9 +10,20 @@ import setMinutes from "date-fns/setMinutes";
 import addDays from "date-fns/addDays";
 import { registerEvent } from "../services/event.js";
 import Modal from "react-bootstrap/Modal";
+import { storage } from "../services/init.js";
+import { ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 registerLocale("ru", ru); // register it with the name you want
 
 export default function EventForm(props) {
+  const [imageUpload, setImageUpload] = useState(null);
+  const uploadImage = (unicName) => {
+    if (imageUpload === null) return;
+    const imageRef = ref(storage, `images/${unicName}`);
+    uploadBytes(imageRef, imageUpload).then(() => {
+      alert('Изображение загруженно');
+    });
+  };
   const navigate = useNavigate();
   const {
     register,
@@ -20,6 +31,8 @@ export default function EventForm(props) {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
+    const name = imageUpload !== null ? imageUpload.name : '';
+    const unicName = `${name + v4()}`;
     const options = {
       year: "numeric",
       month: "long",
@@ -35,8 +48,10 @@ export default function EventForm(props) {
       dateNum: Date.parse(date),
       user: localStorage.token,
       members: [localStorage.token],
+      imageId: unicName,
     };
     const dataOfRegistration = await registerEvent(formattedData);
+    uploadImage(unicName);
     props.onHide();
     alert("Мероприятие успешно создано!");
     document.querySelector(".event-form").reset();
@@ -81,15 +96,15 @@ export default function EventForm(props) {
                 {...register("name", {
                   required: true,
                   minLength: 6,
-                  maxLength: 15,
+                  maxLength: 25,
                 })}
                 placeholder="Название мероприятия *"
               />
               <label htmlFor="inputName">Название мероприятия *</label>
               <div style={{ color: "red", textAlign: "left" }}>
                 {errors.name?.type === "required" && "Это поле обязательное"}
-                {errors.name?.type === "minLength" && "Минимум 3 символа"}
-                {errors.name?.type === "maxLength" && "Максимум 15 символов"}
+                {errors.name?.type === "minLength" && "Минимум 6 символов"}
+                {errors.name?.type === "maxLength" && "Максимум 25 символов"}
               </div>
             </div>
             <div className="form-floating">
@@ -141,9 +156,15 @@ export default function EventForm(props) {
               placeholderText="Дата и время мероприятия"
               showTimeSelect
               //filterTime={filterPassedTime}
-              minDate={addDays(new Date(), -7)}
-              timeIntervals={1}
+              minDate={addDays(new Date(), -31)}
+              timeIntervals={10}
               dateFormat="d MMMM, yyyy г. h:mm"
+            />
+            <input
+              type="file"
+              onChange={(event) => {
+                setImageUpload(event.target.files[0]);
+              }}
             />
             <button className="btn btn-dark">Создать</button>
           </form>

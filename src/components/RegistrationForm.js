@@ -12,7 +12,7 @@ export default function Form() {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const dataOfRegistration = await registerUser(data);
+    const dataOfRegistration = await registerUser({...data, role: "member" });
     console.log(dataOfRegistration)
     localStorage.token = dataOfRegistration.id;
     localStorage.firstname = dataOfRegistration.firstname;
@@ -132,7 +132,7 @@ export default function Form() {
               {...register("patronymic", {
                 required: true,
                 minLength: 3,
-                maxLength: 12,
+                maxLength: 20,
               })}
               placeholder="Отчество"
             />
@@ -142,7 +142,7 @@ export default function Form() {
                 "Это поле обязательное"}
               {errors.patronymic?.type === "minLength" && "Минимум 3 символа"}
               {errors.patronymic?.type === "maxLength" &&
-                "Максимум 12 символов"}
+                "Максимум 20 символов"}
             </div>
           </div>
           <button className="btn btn-dark">Зарегистрироваться</button>

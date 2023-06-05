@@ -1,14 +1,120 @@
+@font-face {
+  font-family: "Onest";
+  src: url("./assets/fonts/Onest-Thin.woff2") format("woff2")
+    url("./assets/fonts/Onest-Thin.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Onest";
+  src: url("./assets/fonts/Onest-Light.woff2") format("woff2")
+    url("./assets/fonts/Onest-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Onest";
+  src: url("./assets/fonts/Onest-Regular.woff2") format("woff2")
+    url("./assets/fonts/Onest-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Onest";
+  src: url("./assets/fonts/Onest-Medium.woff2") format("woff2")
+    url("./assets/fonts/Onest-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Onest";
+  src: url("./assets/fonts/Onest-Bold.woff2") format("woff2")
+    url("./assets/fonts/Onest-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Onest";
+  src: url("./assets/fonts/Onest-ExtraBold.woff2") format("woff2")
+    url("./assets/fonts/Onest-ExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Onest";
+  src: url("./assets/fonts/Onest-Black.woff2") format("woff2")
+    url("./assets/fonts/Onest-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0 !important;
+  line-height: 1.3 !important;
+}
+
+body {
+  font-family: "Onest", sans-serif !important;
+  font-style: normal !important;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 24px 48px;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.links {
+  position: relative;
+  width: 1344px;
+}
+
+.website-name {
+  font-size: 24px;
+  line-height: 31px;
+  margin-right: 24px;
+}
+
+.links-end {
+  position: absolute;
+  right: 0;
+}
+
+.link-users {
+  margin-right: auto;
+}
+
+.btn-exit {
+  margin-left: 24px;
+  line-height: 31px;
+  font-size: 24px;
+  color: #7c7c7c;
+  background: none;
+  border: none;
+}
+
 .home-page-head {
   display: flex;
   justify-content: center;
 }
 
 .link {
-  font-size: 26px;
-  font-weight: 500;
+  font-size: 24px;
+  line-height: 31px;
   color: #000000;
   text-decoration: none;
-  height: min-content;
   display: block;
   align-self: center;
 }
@@ -17,27 +123,46 @@
   color: #000000;
 }
 
+/* Секция главной страницы с мероприятиями */
+.events-section {
+  display: flex;
+  justify-content: center;
+  padding: 48px 48px;
+}
+
+.events {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 1344px;
+  height: auto;
+  align-self: center;
+  gap: 24px;
+}
+
 .events-head {
-  width: 872px;
+  font-weight: 700;
+  font-size: 40px;
+  width: 1344px;
   position: relative;
+  margin-bottom: 48px !important;
 }
 
 .event-settings {
   position: absolute;
-  top: 10%;
   right: 0;
-  height: 48px;
-  width: 48px;
-  bottom: 0;
-  background-image: url("./assets/settings-img.png");
-  background-size: cover;
+  height: 52px;
+  padding: 16px 24px;
+  font-size: 16px;
   border-color: #000000 !important;
+  border: 1px solid #d4d4d4;
+  background-color: #ffffff;
+  border-radius: 80px !important;
 }
 
 .modal-content {
   width: 450px !important;
-  border-radius: 12px !important;
-  border: 1px solid #000000 !important;
+  border-radius: 16px !important;
 }
 
 .event-form > .event-date::placeholder {
@@ -66,58 +191,66 @@ input {
   padding: 6px 10px 5px 25px;
 }
 
-.event {
-  font-size: 18px;
-  font-weight: 500;
-  color: #000000;
-  padding: 21px 42px 25px 36px;
-  width: 872px;
-  border: 1px solid #000000;
-  border-radius: 12px;
+.mt-24 {
+  margin-top: 24px !important;
 }
 
-.event-header {
-  text-align: center;
-  padding: 10px 39px;
-  margin-bottom: 10px;
-  width: 198px;
-  font-size: 24px;
-  border: 1px solid #000000;
-  border-radius: 12px;
+.mb-24 {
+  margin-bottom: 24px !important;
+}
+
+.event {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 16px;
+  height: 625px;
+  width: 432px;
+  border: 1px solid #d4d4d4;
+  border-radius: 16px;
+  transition-property: height;
+  transition-duration: 1500ms;
+}
+
+.event-img {
+  width: 400px;
+  height: 287px;
+  border: 0.01rem solid #d4d4d4;
+  border-radius: 9px;
+}
+
+.event-header h2 {
+  font-weight: 700;
+  font-size: 28px;
+  margin-top: 0 24px !important;
 }
 
 .event-header h3 {
   margin: 0 !important;
 }
 
-.left-section {
-  margin-right: 45px;
-  width: 238px;
-}
-
-.event-date,
-.event-place {
-  margin-bottom: 10px;
+.event-other {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: auto;
+  max-height: 103px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition-property: max-height;
+  transition-duration: 1500ms;
 }
 
 .event-organizer {
   margin: 0;
 }
 
-.right-section {
-  display: flex;
-  flex-direction: column;
-}
-
 .event-description {
   word-wrap: break-word;
   word-break: break-word;
-  width: 517px;
-  height: 171px;
-
-  padding: 10px 12px 16px 19px;
-  border: 1px solid #000000;
-  border-radius: 12px;
 }
 
 .event-description > p {
@@ -127,9 +260,21 @@ input {
   word-break: break-word;
 }
 
+.description-text {
+  font-size: 20px;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 12px !important;
+}
+
 pre {
-  font-size: 18px !important;
-  font-weight: 500;
+  font-family: "Onest", sans-serif !important;
+  font-size: 20px !important;
+  line-height: 30px !important;
+  font-weight: 400;
+  margin-bottom: 0 !important;
   color: #000000;
 
   white-space: pre-wrap; /* Since CSS 2.1 */
@@ -141,20 +286,94 @@ pre {
 
 .btns-section {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 16px;
-  width: 517px;
-  align-self: end;
+  justify-content: right;
+  column-gap: 10px;
+  row-gap: 10px;
+  height: auto;
 }
 
 .btns-section > button {
-  display: block;
-  width: 48%;
+  height: 56px;
+}
+
+.btn-more {
+  position: relative;
+  padding-left: 25px;
+  font-size: 16px;
+  width: 163px;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid #d5d5d5;
+  border-radius: 80px;
+  transition-property: all;
+  transition-duration: 1s;
+}
+
+.img-more {
+  position: absolute;
+  left: 16px;
+  transition-property: all;
+  transition-duration: 1s;
 }
 
 .btn-subscribe {
-  width: 517px !important;
+  position: relative;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  padding-left: 24px;
+  width: 142px;
+  background: #188754;
+  border: none;
+  border-radius: 80px;
+  transition-property: all;
+  transition-duration: 400ms;
+}
+
+.btn-subscribe::before {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  width: 20px;
+  height: 20px;
+  background-image: url("./assets/checked.png");
+  content: "";
+}
+
+.btn-unsubscribe {
+  font-size: 16px;
+  width: 163px;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid #d5d5d5;
+  border-radius: 80px;
+  transition-property: all;
+  transition-duration: 500ms;
+}
+
+.btn-edit {
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid #d5d5d5;
+  border-radius: 80px;
+  transition-property: all;
+  transition-duration: 500ms;
+}
+
+.btn-remove {
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #DC3545;
+  border: 1px solid #d5d5d5;
+  border-radius: 80px;
+  transition-property: all;
+  transition-duration: 500ms;
 }
 
 #block {
@@ -162,14 +381,7 @@ pre {
 }
 
 .event-members {
-  margin-top: 10px;
-  align-self: flex-end;
   font-weight: 400;
-}
-
-.form-settings-header {
-  color: #ffffff;
-  background-color: #185870;
 }
 
 hr {
@@ -181,27 +393,34 @@ hr {
 }
 
 .form-type-events > p {
-  margin: 0;
+  margin-right: 15px !important;
   display: inline;
-  font-weight: 500;
-  margin-right: 15px;
+  font-weight: 600;
 }
 
 .form-range-events {
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
 .form-range-events > p {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .form-date-pickers {
+  margin-top: 12px;
   display: flex;
   column-gap: 10px;
 }
 
 .btn-create-event {
-  width: 872px;
+  position: absolute;
+  font-size: 16px;
+  right: 0;
+  padding: 13px 24px;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid #d5d5d5;
+  border-radius: 80px;
 }
 
 .btn-default-value {
@@ -210,32 +429,54 @@ hr {
   width: 40px;
 }
 
+.profile-page-head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.profile-page-head > h1 {
+  position: relative;
+  font-weight: 700;
+  font-size: 40px;
+  width: 1344px;
+  position: relative;
+}
+
 #title {
   text-align: center;
   /* font-family: arial, sans-serif; */
+}
+
+table {
+  border-radius: 16px;
 }
 
 #users {
   text-align: center;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  border: 3px solid #ddd;
+  /* border: 3px solid #ddd; */
   width: 100%;
 }
 
-#users td, #users th {
+#users td,
+#users th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-#users tr:nth-child(even){background-color: #f2f2f2;}
+#users tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-#users tr:hover {background-color: #ddd;}
+#users tr:hover {
+  background-color: #ddd;
+}
 
 #users th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #185870;
-  color: white;
 }

@@ -44,17 +44,23 @@ const Home = () => {
         </div>
       ) : (
         <>
-          <h1 className="text-center mt-3">Мои мероприятия</h1>
-          <div className="d-flex flex-column align-items-center gap-5 pb-5">
-            <button
-              type="button"
-              className="btn-create-event btn btn-outline-success btn-lg btn-block mt-4"
-              onClick={() => setModalShow(true)}
-            >
-              Создать мероприятие
-            </button>
-            <EventForm show={modalShow} onHide={() => setModalShow(false)} />
-            <MyEvents />
+          <div className="events-section d-flex flex-column">
+            <div className="profile-page-head">
+              <h1>
+                Мои мероприятия
+                <button
+                  type="button"
+                  className="btn-create-event"
+                  onClick={() => setModalShow(true)}
+                >
+                  Создать мероприятие
+                </button>
+              </h1>
+            </div>
+            <div className="events d-flex pb-5">
+              <EventForm show={modalShow} onHide={() => setModalShow(false)} />
+              <MyEvents />
+            </div>
           </div>
           <div className="pb-5"></div>
         </>

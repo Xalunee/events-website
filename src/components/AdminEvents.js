@@ -4,10 +4,42 @@ import { subscribeToEvent } from "../services/event.js";
 import { removeEvent } from "../services/event.js";
 import { changeEvent } from "../services/event.js";
 import ModalEdit from "./ModalEdit.js";
+import { storage } from "../services/init.js";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 const AdminEvents = () => {
   const [currentEvent, setCurrentEvent] = useState("");
   const [modalShow, setModalShow] = useState(false);
+  const doMore = (e) => {
+    const element = e.target;
+    const elementEvent = element.parentNode.parentNode;
+    const elementEventOther = elementEvent.querySelector(".event-other");
+    const elementImg = elementEvent.querySelector(".img-more");
+    if (elementEvent.classList.contains("collapsed")) {
+      elementEvent.classList.remove("collapsed");
+      elementEvent.classList.add("expanded");
+      if (elementEvent) {
+        elementEvent.style.height = "auto";
+      }
+      if (elementEventOther) {
+        elementEventOther.style.maxHeight = "1000px";
+      }
+      elementImg.src = require("../assets/arrow down reverse.png");
+    } else {
+      if (elementEventOther) {
+        elementEventOther.style.maxHeight = "103px";
+      }
+      elementEvent.classList.remove("expanded");
+      elementEvent.classList.add("collapsed");
+      elementImg.src = require("../assets/arrow down.png");
+      setTimeout(() => {
+        if (elementEvent) {
+          elementEvent.style.height = "625px";
+        }
+      }, 1450);
+    }
+  };
+
   const dateNow = new Date();
   const allEvents = useSelector((state) => state.events.events);
   const currentUsers = useSelector((state) => state.users.users);
@@ -18,6 +50,25 @@ const AdminEvents = () => {
   const dateRange = localStorage.dateRange
     ? [Number(localDateRange[0]), Number(localDateRange[1])]
     : null;
+
+  const imageListRef = ref(storage, "images/");
+  const [imageList, setImageList] = useState([]);
+  useEffect(() => {
+    listAll(imageListRef).then((response) => {
+      response.items.forEach((item) => {
+        const path = item._location.path;
+        const cuttedPath = path.slice(7);
+        getDownloadURL(item).then((url) => {
+          setImageList((prev) => [...prev, { path: cuttedPath, url }]);
+        });
+      });
+    });
+  }, []);
+  const findImg = (imageId) => {
+    const findedImg = imageList.find((image) => image.path === imageId);
+    return findedImg ? findedImg : { url: require("../assets/none-image.png") };
+  };
+
   return (
     <>
       {eventType === "Текущие"
@@ -28,22 +79,30 @@ const AdminEvents = () => {
               event.dateNum > dateRange[0] &&
               event.dateNum < dateRange[1]
             ) {
+              const imageObj = event.imageId
+                ? findImg(event.imageId).url
+                : require("../assets/none-image.png");
               return (
-                <div className="event d-flex" key={event.id}>
-                  <div className="left-section">
-                    <div className="event-header">
-                      <h3>{event.name}</h3>
+                <div className="event collapsed" key={event.id}>
+                  <img src={imageObj} className="event-img"></img>
+                  <div className="event-header">
+                    <h2>{event.name}</h2>
+                  </div>
+                  <div className="event-other">
+                    <div className="event-description">
+                      <p className="title">Описание</p>
+                      <p className="description-text">{event.description}</p>
                     </div>
-                    <p className="event-date">
-                      Дата и время:{" "}
+                    <div className="event-date">
+                      <p className="title">Дата и время</p>
                       <span style={{ fontWeight: "400" }}>{event.date}</span>
-                    </p>
+                    </div>
                     <p className="event-place">
-                      Место:{" "}
+                      <p className="title">Место</p>
                       <span style={{ fontWeight: "400" }}>{event.place}</span>
                     </p>
                     <p className="event-organizer">
-                      Организатор:
+                      <p className="title">Организатор</p>
                       <span style={{ fontWeight: "400" }}>
                         {" "}
                         {
@@ -60,71 +119,83 @@ const AdminEvents = () => {
                         }
                       </span>
                     </p>
-                  </div>
-                  <div className="right-section">
-                    <div className="event-description">
-                      <pre>{event.description}</pre>
-                    </div>
-                    <div className="btns-section" id="block">
-                      {localStorage.token &&
-                      event.members.includes(localStorage.token) ? (
-                        <button
-                          type="button"
-                          className="btn-subscribe btn btn-outline-danger"
-                          onClick={() => {
-                            const copyMembers = [...event.members];
-                            const userIndex = copyMembers.indexOf(
-                              localStorage.token
-                            );
-                            copyMembers.splice(userIndex, userIndex);
-                            changeEvent({ ...event, members: copyMembers });
-                          }}
-                        >
-                          Я не пойду
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          className="btn-subscribe btn btn-outline-success"
-                          onClick={() => {
-                            const copyMembers = [...event.members];
-                            copyMembers.push(localStorage.token);
-                            changeEvent({ ...event, members: copyMembers });
-                          }}
-                        >
-                          Я пойду
-                        </button>
-                      )}
-                      <div className="btns-section">
-                        <button
-                          type="button"
-                          className="btn-edit btn btn-outline-dark"
-                          onClick={() => {
-                            setModalShow(true);
-                            setCurrentEvent(event);
-                          }}
-                        >
-                          Редактировать
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-outline-danger btn-block ml-3"
-                          onClick={() => {
-                            removeEvent(event);
-                          }}
-                          style={
-                            event.dateNum < Date.parse(dateNow)
-                              ? { width: "517px" }
-                              : { width: "48%" }
-                          }
-                        >
-                          Удалить
-                        </button>
-                      </div>
-                    </div>
                     <span className="event-members">
-                      Пойдут на мероприятие: {event.members.length}
+                      <b>Пойдут на мероприятие:</b> {event.members.length}
                     </span>
+                  </div>
+                  <div className="btns-section">
+                    <button
+                      type="button"
+                      className="btn-edit"
+                      onClick={() => {
+                        setModalShow(true);
+                        setCurrentEvent(event);
+                      }}
+                      style={
+                        event.dateNum < Date.parse(dateNow)
+                          ? { width: "517px" }
+                          : { width: "48.4%" }
+                      }
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-remove"
+                      onClick={() => {
+                        removeEvent(event);
+                      }}
+                      style={
+                        event.dateNum < Date.parse(dateNow)
+                          ? { width: "517px" }
+                          : { width: "49%" }
+                      }
+                    >
+                      Удалить
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-more"
+                      onClick={(e) => doMore(e)}
+                      style={{width: "48.4%"}}
+                    >
+                      <img
+                        src={require("../assets/arrow down.png")}
+                        className="img-more"
+                      ></img>
+                      Подробнее
+                    </button>
+                    {localStorage.token &&
+                    event.members.includes(localStorage.token) ? (
+                      <button
+                        type="button"
+                        className="btn-subscribe"
+                        onClick={() => {
+                          const copyMembers = [...event.members];
+                          const userIndex = copyMembers.indexOf(
+                            localStorage.token
+                          );
+                          copyMembers.splice(userIndex, userIndex);
+                          changeEvent({ ...event, members: copyMembers });
+                        }}
+                        style={{width: "49%"}}
+                      >
+                        Я пойду!
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn-unsubscribe"
+                        onClick={() => {
+                          const copyMembers = [...event.members];
+                          copyMembers.push(localStorage.token);
+                          changeEvent({ ...event, members: copyMembers });
+                        }}
+                        style={{width: "49%"}}
+                      >
+                        Я пойду!
+                      </button>
+                    )}
                   </div>
                 </div>
               );
@@ -132,22 +203,30 @@ const AdminEvents = () => {
 
             // Если не указан диапазон дат, то выводятся текущие мероприятия
             if (!dateRange && event.dateNum > Date.parse(dateNow)) {
+              const imageObj = event.imageId
+                ? findImg(event.imageId).url
+                : require("../assets/none-image.png");
               return (
-                <div className="event d-flex" key={event.id}>
-                  <div className="left-section">
-                    <div className="event-header">
-                      <h3>{event.name}</h3>
+                <div className="event collapsed" key={event.id}>
+                  <img src={imageObj} className="event-img"></img>
+                  <div className="event-header">
+                    <h2>{event.name}</h2>
+                  </div>
+                  <div className="event-other">
+                    <div className="event-description">
+                      <p className="title">Описание</p>
+                      <p className="description-text">{event.description}</p>
                     </div>
-                    <p className="event-date">
-                      Дата и время:{" "}
+                    <div className="event-date">
+                      <p className="title">Дата и время</p>
                       <span style={{ fontWeight: "400" }}>{event.date}</span>
-                    </p>
+                    </div>
                     <p className="event-place">
-                      Место:{" "}
+                      <p className="title">Место</p>
                       <span style={{ fontWeight: "400" }}>{event.place}</span>
                     </p>
                     <p className="event-organizer">
-                      Организатор:
+                      <p className="title">Организатор</p>
                       <span style={{ fontWeight: "400" }}>
                         {" "}
                         {
@@ -164,71 +243,83 @@ const AdminEvents = () => {
                         }
                       </span>
                     </p>
-                  </div>
-                  <div className="right-section">
-                    <div className="event-description">
-                      <pre>{event.description}</pre>
-                    </div>
-                    <div className="btns-section" id="block">
-                      {localStorage.token &&
-                      event.members.includes(localStorage.token) ? (
-                        <button
-                          type="button"
-                          className="btn-subscribe btn btn-outline-danger"
-                          onClick={() => {
-                            const copyMembers = [...event.members];
-                            const userIndex = copyMembers.indexOf(
-                              localStorage.token
-                            );
-                            copyMembers.splice(userIndex, userIndex);
-                            changeEvent({ ...event, members: copyMembers });
-                          }}
-                        >
-                          Я не пойду
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          className="btn-subscribe btn btn-outline-success"
-                          onClick={() => {
-                            const copyMembers = [...event.members];
-                            copyMembers.push(localStorage.token);
-                            changeEvent({ ...event, members: copyMembers });
-                          }}
-                        >
-                          Я пойду
-                        </button>
-                      )}
-                      <div className="btns-section">
-                        <button
-                          type="button"
-                          className="btn-edit btn btn-outline-dark"
-                          onClick={() => {
-                            setModalShow(true);
-                            setCurrentEvent(event);
-                          }}
-                        >
-                          Редактировать
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-outline-danger btn-block ml-3"
-                          onClick={() => {
-                            removeEvent(event);
-                          }}
-                          style={
-                            event.dateNum < Date.parse(dateNow)
-                              ? { width: "517px" }
-                              : { width: "48%" }
-                          }
-                        >
-                          Удалить
-                        </button>
-                      </div>
-                    </div>
                     <span className="event-members">
-                      Пойдут на мероприятие: {event.members.length}
+                      <b>Пойдут на мероприятие:</b> {event.members.length}
                     </span>
+                  </div>
+                  <div className="btns-section">
+                    <button
+                      type="button"
+                      className="btn-edit"
+                      onClick={() => {
+                        setModalShow(true);
+                        setCurrentEvent(event);
+                      }}
+                      style={
+                        event.dateNum < Date.parse(dateNow)
+                          ? { width: "517px" }
+                          : { width: "48.4%" }
+                      }
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-remove"
+                      onClick={() => {
+                        removeEvent(event);
+                      }}
+                      style={
+                        event.dateNum < Date.parse(dateNow)
+                          ? { width: "517px" }
+                          : { width: "49%" }
+                      }
+                    >
+                      Удалить
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-more"
+                      onClick={(e) => doMore(e)}
+                      style={{width: "48.4%"}}
+                    >
+                      <img
+                        src={require("../assets/arrow down.png")}
+                        className="img-more"
+                      ></img>
+                      Подробнее
+                    </button>
+                    {localStorage.token &&
+                    event.members.includes(localStorage.token) ? (
+                      <button
+                        type="button"
+                        className="btn-subscribe"
+                        onClick={() => {
+                          const copyMembers = [...event.members];
+                          const userIndex = copyMembers.indexOf(
+                            localStorage.token
+                          );
+                          copyMembers.splice(userIndex, userIndex);
+                          changeEvent({ ...event, members: copyMembers });
+                        }}
+                        style={{width: "49%"}}
+                      >
+                        Я пойду!
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn-unsubscribe"
+                        onClick={() => {
+                          const copyMembers = [...event.members];
+                          copyMembers.push(localStorage.token);
+                          changeEvent({ ...event, members: copyMembers });
+                        }}
+                        style={{width: "49%"}}
+                      >
+                        Я пойду!
+                      </button>
+                    )}
                   </div>
                 </div>
               );
@@ -241,22 +332,32 @@ const AdminEvents = () => {
               event.dateNum > dateRange[0] &&
               event.dateNum < dateRange[1]
             ) {
+              const imageObj = event.imageId
+                ? findImg(event.imageId).url
+                : require("../assets/none-image.png");
               return (
-                <div className="event d-flex" key={event.id}>
-                  <div className="left-section">
-                    <div className="event-header">
-                      <h3>{event.name}</h3>
+                <div className="event collapsed" key={event.id}>
+                  <img src={imageObj} className="event-img"></img>
+                  <div className="event-header">
+                    <h2>{event.name}</h2>
+                  </div>
+                  <div className="event-other">
+                    <div className="event-description">
+                      <p className="title">Описание</p>
+                      <pre className="description-text">
+                        {event.description}
+                      </pre>
                     </div>
-                    <p className="event-date">
-                      Дата и время:{" "}
+                    <div className="event-date">
+                      <p className="title">Дата и время</p>
                       <span style={{ fontWeight: "400" }}>{event.date}</span>
-                    </p>
+                    </div>
                     <p className="event-place">
-                      Место:{" "}
+                      <p className="title">Место</p>
                       <span style={{ fontWeight: "400" }}>{event.place}</span>
                     </p>
                     <p className="event-organizer">
-                      Организатор:
+                      <p className="title">Организатор</p>
                       <span style={{ fontWeight: "400" }}>
                         {" "}
                         {
@@ -273,38 +374,44 @@ const AdminEvents = () => {
                         }
                       </span>
                     </p>
-                  </div>
-                  <div className="right-section">
-                    <div className="event-description">
-                      <pre>{event.description}</pre>
-                    </div>
-                    <div className="btns-section" id="block">
-                      <div className="btns-section">
-                        <button
-                          type="button"
-                          className="btn-edit btn btn-outline-dark"
-                          onClick={() => {
-                            setModalShow(true);
-                            setCurrentEvent(event);
-                          }}
-                        >
-                          Редактировать
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-outline-danger btn-block ml-3"
-                          onClick={() => {
-                            removeEvent(event);
-                          }}
-                          style={{ width: "48%" }}
-                        >
-                          Удалить
-                        </button>
-                      </div>
-                    </div>
                     <span className="event-members">
-                      Было на мероприятии: {event.members.length}
+                      <b>Было на мероприятии</b> {event.members.length}
                     </span>
+                  </div>
+                  <div className="btns-section">
+                  <button
+                      type="button"
+                      className="btn-edit"
+                      onClick={() => {
+                        setModalShow(true);
+                        setCurrentEvent(event);
+                      }}
+                      style={{ width: "48.4%" }}
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-remove"
+                      onClick={() => {
+                        removeEvent(event);
+                      }}
+                      style={{ width: "49%" }}
+                    >
+                      Удалить
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-more"
+                      onClick={(e) => doMore(e)}
+                      style={{width: "100%"}}
+                    >
+                      <img
+                        src={require("../assets/arrow down.png")}
+                        className="img-more"
+                      ></img>
+                      Подробнее
+                    </button>
                   </div>
                 </div>
               );
@@ -312,22 +419,30 @@ const AdminEvents = () => {
 
             // Если не указан диапазон дат в настройках фильтрации, то отображаются архивные мероприятия
             if (!dateRange && event.dateNum < Date.parse(dateNow)) {
+              const imageObj = event.imageId
+                ? findImg(event.imageId).url
+                : require("../assets/none-image.png");
               return (
-                <div className="event d-flex" key={event.id}>
-                  <div className="left-section">
-                    <div className="event-header">
-                      <h3>{event.name}</h3>
+                <div className="event collapsed" key={event.id}>
+                  <img src={imageObj} className="event-img"></img>
+                  <div className="event-header">
+                    <h2>{event.name}</h2>
+                  </div>
+                  <div className="event-other">
+                    <div className="event-description">
+                      <p className="title">Описание</p>
+                      <p className="description-text">{event.description}</p>
                     </div>
-                    <p className="event-date">
-                      Дата и время:{" "}
+                    <div className="event-date">
+                      <p className="title">Дата и время</p>
                       <span style={{ fontWeight: "400" }}>{event.date}</span>
-                    </p>
+                    </div>
                     <p className="event-place">
-                      Место:{" "}
+                      <p className="title">Место</p>
                       <span style={{ fontWeight: "400" }}>{event.place}</span>
                     </p>
                     <p className="event-organizer">
-                      Организатор:
+                      <p className="title">Организатор</p>
                       <span style={{ fontWeight: "400" }}>
                         {" "}
                         {
@@ -344,50 +459,53 @@ const AdminEvents = () => {
                         }
                       </span>
                     </p>
-                  </div>
-                  <div className="right-section">
-                    <div className="event-description">
-                      <pre>{event.description}</pre>
-                    </div>
-                    <div className="btns-section">
-                      <button
-                        type="button"
-                        className="btn-edit btn btn-outline-dark"
-                        onClick={() => {
-                          setModalShow(true);
-                          setCurrentEvent(event);
-                        }}
-                      >
-                        Редактировать
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-outline-danger btn-block ml-3"
-                        onClick={() => {
-                          removeEvent(event);
-                        }}
-                        style={{ width: "48%" }}
-                      >
-                        Удалить
-                      </button>
-                    </div>
                     <span className="event-members">
-                      {event.members.length}
+                      <b>Было на мероприятии</b> {event.members.length}
                     </span>
                   </div>
+                  <div className="btns-section">
+                  <button
+                      type="button"
+                      className="btn-edit"
+                      onClick={() => {
+                        setModalShow(true);
+                        setCurrentEvent(event);
+                      }}
+                      style={{ width: "48.4%" }}
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-remove"
+                      onClick={() => {
+                        removeEvent(event);
+                      }}
+                      style={{ width: "49%" }}
+                    >
+                      Удалить
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-more"
+                      onClick={(e) => doMore(e)}
+                      style={{width: "100%"}}
+                    >
+                      <img
+                        src={require("../assets/arrow down.png")}
+                        className="img-more"
+                      ></img>
+                      Подробнее
+                    </button>
+                  </div>
                 </div>
+                
               );
             }
           })}
-      {currentEvent && (
-        <ModalEdit
-          show={modalShow}
-          event={currentEvent}
-          onHide={() => {
-            setModalShow(false);
-          }}
-        />
-      )}
+          {currentEvent && <ModalEdit show={modalShow} event={currentEvent} onHide={() => {
+                setModalShow(false)
+              }} />}
     </>
   );
 };

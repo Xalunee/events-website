@@ -111,7 +111,6 @@ export default function ModalSettings(props) {
               </label>
             </div>
           </div>
-          <hr></hr>
           <div className="form-range-events">
             <p>
               {currentTypeOfEvent === "Текущие"
@@ -145,6 +144,10 @@ export default function ModalSettings(props) {
                     addDays(new Date(), 183),
                   ]);
                 } else {
+                  setDateRange([
+                    addDays(new Date(), -365),
+                    addDays(new Date(), 0),
+                  ]);
                   setDisabledNavigation([
                     addDays(new Date(), -365),
                     addDays(new Date(), 0),

@@ -54,15 +54,14 @@ const Home = () => {
           </div>
         </div>
       ) : (
-        <div className="d-flex flex-column align-items-center">
+        <div className="events-section d-flex flex-column">
           <div className="home-page-head">
-            <h1 className="events-head text-center mb-4 mt-3">
+            <h1 className="events-head">
               {headContent}
-              <Button
+              <button
                 className="event-settings"
-                variant="light"
                 onClick={() => setModalShow(true)}
-              ></Button>
+              >Настройки</button>
             </h1>
           </div>
           {!localStorage.firstname ? (
@@ -93,7 +92,7 @@ const Home = () => {
           ) : (
             <></>
           )}
-          <div className="d-flex flex-column align-items-center gap-5 pb-5">
+          <div className="events d-flex pb-5">
             {localStorage.firstname ? (
               isAdmin ? (
                 <AdminEvents></AdminEvents>

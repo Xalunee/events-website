@@ -14,48 +14,26 @@ export default function Header() {
   const adminText = isAdmin ? "(Админ)" : "";
 
   return (
-    <header
-      className="border-bottom border-dark"
-      style={{ padding: "13px 29px", background: "#F9F9F9" }}
-    >
-      <div className="d-flex justify-content-between">
-        <div className="d-flex flex-nowrap">
-          <img
-            style={{ width: "54px" }}
-            src={require("../assets/logo-main.png")}
-            alt="Иконка"
-          />
-          <NavLink
-            to="/"
-            className="link align-self-center"
-            style={{
-              fontSize: "26px",
-              marginLeft: "15px",
-              marginBottom: "4px",
-            }}
-          >
-            Электроклуб г. Салават
-          </NavLink>
-        </div>
+    <header className="header">
+      <div className="links d-flex">
+        <NavLink to="/" className="link website-name">
+          Электроклуб г. Салават
+        </NavLink>
         {isAdmin ? (
-          <NavLink to="/admin" className="link">
+          <NavLink to="/admin" className="link link-users">
             Пользователи
           </NavLink>
         ) : (
           ""
         )}
-        <div className="d-flex">
+        <div className="d-flex links-end">
           <NavLink
             to={user ? "/profile" : "/login"}
             className="link"
-            style={{ background: 0, border: 0, marginBottom: "4px" }}
             onClick={() => navigate(user ? "/profile" : "/login")}
             color="inherit"
           >
-            <span
-              className="font-weight-bold"
-              style={{ fontSize: "22px", fontWeight: "500" }}
-            >
+            <span className="font-weight-bold">
               {user
                 ? user.surname + " " + user.firstname + " " + adminText
                 : "Войти"}
@@ -63,13 +41,7 @@ export default function Header() {
           </NavLink>
           {user ? (
             <button
-              style={{
-                background: 0,
-                border: 0,
-                fontSize: "22px",
-                fontWeight: "bold",
-                marginLeft: "20px",
-              }}
+              className="btn-exit"
               onClick={() => {
                 localStorage.clear();
                 navigate("/login");
