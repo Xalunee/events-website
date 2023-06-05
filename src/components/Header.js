@@ -32,7 +32,7 @@ export default function Header() {
             className="link"
             onClick={() => navigate(user ? "/profile" : "/login")}
             color="inherit"
-            style={!user ? {color: "#7c7c7c"} : ""}
+            style={!user ? {color: "#7c7c7c"} : {color: "#000000"}}
           >
             <span className="font-weight-bold">
               {user
