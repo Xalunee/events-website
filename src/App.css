@@ -148,6 +148,11 @@ body {
   margin-bottom: 48px !important;
 }
 
+.div-alert {
+  align-self: center;
+  width: 1344px;
+}
+
 .event-settings {
   position: absolute;
   right: 0;
