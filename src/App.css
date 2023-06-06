@@ -241,7 +241,7 @@ input {
   flex-direction: column;
   gap: 24px;
   margin-bottom: auto;
-  max-height: 103px;
+  max-height: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -484,4 +484,81 @@ table {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
+}
+
+
+@media (max-width: 414px) {
+  .header {
+    padding: 12px 20px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: auto;
+    width: 414px;
+  }
+
+  .links {
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    height: auto;
+    width: 374px;
+  }
+
+  .link {
+    align-self: flex-start;
+  }
+
+  .website-name {
+    margin-bottom: 10px;
+  }
+
+  .links-end {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .btn-exit {
+    text-align: start;
+    margin-left: 0;
+  }
+
+  .events-section {
+    padding: 24px 20px;
+  }
+
+  .events-head {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 30px;
+    margin-bottom: 24px !important;
+  }
+
+  .event-settings {
+    margin-top: 10px;
+    position: relative;
+  }
+
+  .events {
+    flex-wrap: wrap;
+    padding: 0 20px;
+    width: 414px;
+  }
+
+  .event {
+    width: 374px;
+  }
+
+  .event-img {
+    width: 342px;
+    height: 229px;
+  }
+
+  .modal-dialog {
+    margin: 0 10px !important;
+  }
+
+  .modal-content {
+    width: 374px !important;
+  }
 }

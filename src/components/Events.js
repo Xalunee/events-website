@@ -12,23 +12,23 @@ const Events = () => {
     const elementEventOther = elementEvent.querySelector('.event-other');
     const elementImg = elementEvent.querySelector('.img-more');
     if (elementEvent.classList.contains('collapsed')) {
-      elementEvent.classList.remove('collapsed');
-      elementEvent.classList.add('expanded');
-      if (elementEvent) {
+      if (elementEvent && elementEventOther) {
+        elementEvent.classList.remove('collapsed');
+        elementEvent.classList.add('expanded');
         elementEvent.style.height = 'auto';
+        elementEventOther.style.maxHeight = '1000px';
+        elementImg.src = require("../assets/arrow\ down\ reverse.png");
       }
-      elementEventOther.style.maxHeight = '1000px';
-      elementImg.src = require("../assets/arrow\ down\ reverse.png");
     } else {
-      elementEventOther.style.maxHeight = '103px';
-      elementEvent.classList.remove('expanded');
-      elementEvent.classList.add('collapsed');
-      elementImg.src = require("../assets/arrow\ down.png");
-      setTimeout(() => {
-        if (elementEvent) {
+      if (elementEvent && elementEventOther) {
+        elementEventOther.style.maxHeight = '200px';
+        elementEvent.classList.remove('expanded');
+        elementEvent.classList.add('collapsed');
+        elementImg.src = require("../assets/arrow\ down.png");
+        setTimeout(() => {
           elementEvent.style.height = '625px';
-        }
-      }, 1500)
+        }, 1500)
+      }
     }
   };
 
@@ -164,7 +164,7 @@ const Events = () => {
                   <div className="event-other">
                     <div className="event-description">
                       <p className="title">Описание</p>
-                      <p className="description-text">{event.description}</p>
+                      <pre className="description-text">{event.description}</pre>
                     </div>
                     <div className="event-date">
                       <p className="title">Дата и время</p>
@@ -335,7 +335,7 @@ const Events = () => {
                   <div className="event-other">
                     <div className="event-description">
                       <p className="title">Описание</p>
-                      <p className="description-text">{event.description}</p>
+                      <pre className="description-text">{event.description}</pre>
                     </div>
                     <div className="event-date">
                       <p className="title">Дата и время</p>
