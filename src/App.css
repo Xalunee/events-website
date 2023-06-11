@@ -493,7 +493,7 @@ table {
     flex-direction: column;
     flex-wrap: wrap;
     height: auto;
-    width: 414px;
+    max-width: 414px;
   }
 
   .links {
@@ -501,7 +501,7 @@ table {
     align-items: flex-start;
     flex-wrap: wrap;
     height: auto;
-    width: 374px;
+    max-width: 374px;
   }
 
   .link {
@@ -524,12 +524,14 @@ table {
   }
 
   .events-section {
+    max-width: 414px;
     padding: 24px 20px;
   }
 
   .events-head {
     display: flex;
     flex-wrap: wrap;
+    width: max-content;
     font-size: 30px;
     margin-bottom: 24px !important;
   }
@@ -537,28 +539,79 @@ table {
   .event-settings {
     margin-top: 10px;
     position: relative;
+    max-width: 414px;
   }
 
   .events {
     flex-wrap: wrap;
-    padding: 0 20px;
-    width: 414px;
+    width: auto;
+    max-width: 414px;
+    min-width: 50px;
+    align-self: normal;
+  }
+
+  .event-other {
+    max-height: 300px;
   }
 
   .event {
-    width: 374px;
+    width: auto;
+    flex-shrink: 10;
+    min-width: 10px;
   }
 
   .event-img {
-    width: 342px;
+    width: auto;
     height: 229px;
   }
 
   .modal-dialog {
-    margin: 0 10px !important;
+    margin-left: 5% !important;
   }
 
   .modal-content {
     width: 374px !important;
+  }
+
+  .form-type-events > p {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px !important;
+  }
+  
+  .profile-page-head {
+    display: block;
+    margin-bottom: 0;
+  }
+  
+  .profile-page-head > h1 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 374px;
+    height: auto;
+    font-size: 30px;
+    margin-bottom: 24px !important;
+  }
+
+  .btn-create-event {
+    position: relative;
+    margin-top: 10px;
+  }
+
+  .event-block {
+    padding-top: 15px;
+  }
+
+  .div-alert {
+    width: max-content;
+  }
+
+  .alert {
+    width: 374px;
+  }
+
+  .table-users {
+    width: 374px;
+    overflow: scroll;
   }
 }

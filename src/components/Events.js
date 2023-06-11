@@ -21,7 +21,8 @@ const Events = () => {
       }
     } else {
       if (elementEvent && elementEventOther) {
-        elementEventOther.style.maxHeight = '200px';
+        const clientWidth = document.documentElement.clientWidth;
+        elementEventOther.style.maxHeight = clientWidth === 414 ? '197px' : '140px';
         elementEvent.classList.remove('expanded');
         elementEvent.classList.add('collapsed');
         elementImg.src = require("../assets/arrow\ down.png");

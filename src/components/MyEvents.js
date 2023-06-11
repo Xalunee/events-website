@@ -80,30 +80,26 @@ const Home = () => {
   const doMore = (e) => {
     const element = e.target;
     const elementEvent = element.parentNode.parentNode;
-    const elementEventOther = elementEvent.querySelector(".event-other");
-    const elementImg = elementEvent.querySelector(".img-more");
-    if (elementEvent.classList.contains("collapsed")) {
-      elementEvent.classList.remove("collapsed");
-      elementEvent.classList.add("expanded");
-      if (elementEvent) {
-        elementEvent.style.height = "auto";
+    const elementEventOther = elementEvent.querySelector('.event-other');
+    const elementImg = elementEvent.querySelector('.img-more');
+    if (elementEvent.classList.contains('collapsed')) {
+      if (elementEvent && elementEventOther) {
+        elementEvent.classList.remove('collapsed');
+        elementEvent.classList.add('expanded');
+        elementEvent.style.height = 'auto';
+        elementEventOther.style.maxHeight = '1000px';
+        elementImg.src = require("../assets/arrow\ down\ reverse.png");
       }
-      if (elementEventOther) {
-        elementEventOther.style.maxHeight = "1000px";
-      }
-      elementImg.src = require("../assets/arrow down reverse.png");
     } else {
-      if (elementEventOther) {
-        elementEventOther.style.maxHeight = "103px";
+      if (elementEvent && elementEventOther) {
+        elementEventOther.style.maxHeight = '140px';
+        elementEvent.classList.remove('expanded');
+        elementEvent.classList.add('collapsed');
+        elementImg.src = require("../assets/arrow\ down.png");
+        setTimeout(() => {
+          elementEvent.style.height = '625px';
+        }, 1500)
       }
-      elementEvent.classList.remove("expanded");
-      elementEvent.classList.add("collapsed");
-      elementImg.src = require("../assets/arrow down.png");
-      setTimeout(() => {
-        if (elementEvent) {
-          elementEvent.style.height = "625px";
-        }
-      }, 1700);
     }
   };
 
@@ -212,7 +208,7 @@ const Home = () => {
                   style={
                     event.dateNum < Date.parse(dateNow)
                       ? { width: "517px" }
-                      : { width: "49%" }
+                      : { width: "48.4%" }
                   }
                 >
                   Удалить

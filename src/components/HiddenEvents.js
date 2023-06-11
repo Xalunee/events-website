@@ -30,7 +30,8 @@ const HiddenEvents = () => {
         elementEventOther.style.maxHeight = '1000px';
         elementImg.src = require("../assets/arrow\ down\ reverse.png");
       } else {
-        elementEventOther.style.maxHeight = '103px';
+        const clientWidth = document.documentElement.clientWidth;
+        elementEventOther.style.maxHeight = clientWidth === 414 ? '200px' : '103px';
         elementEvent.classList.remove('expanded');
         elementEvent.classList.add('collapsed');
         elementImg.src = require("../assets/arrow\ down.png");

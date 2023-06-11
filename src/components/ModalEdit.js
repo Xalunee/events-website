@@ -103,14 +103,14 @@ export default function ModalEdit(props) {
                 {...register("name", {
                   required: true,
                   minLength: 6,
-                  maxLength: 15,
+                  maxLength: 40,
                 })}
               />
               <label htmlFor="inputName">Название мероприятия *</label>
               <div style={{ color: "red", textAlign: "left" }}>
                 {errors.name?.type === "required" && "Это поле обязательное"}
                 {errors.name?.type === "minLength" && "Минимум 3 символа"}
-                {errors.name?.type === "maxLength" && "Максимум 15 символов"}
+                {errors.name?.type === "maxLength" && "Максимум 25 символов"}
               </div>
             </div>
             <div className="form-floating">

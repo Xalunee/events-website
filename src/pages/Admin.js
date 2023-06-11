@@ -25,9 +25,9 @@ const Home = () => {
           </div>
         </>
       ) : (
-        <div className="d-flex flex-column align-items-center gap-5 pb-5">
+        <div className="users d-flex flex-column align-items-center gap-5 pb-5">
           <div
-            className="alert alert-info alert-dismissible fade in show mb-4 mt-4"
+            className="users alert alert-info alert-dismissible fade in show mb-4 mt-4"
             role="alert"
             style={{ maxWidth: "1000px" }}
           >

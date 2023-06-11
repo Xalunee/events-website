@@ -96,7 +96,7 @@ export default function EventForm(props) {
                 {...register("name", {
                   required: true,
                   minLength: 6,
-                  maxLength: 25,
+                  maxLength: 40,
                 })}
                 placeholder="Название мероприятия *"
               />
