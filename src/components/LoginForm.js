@@ -28,7 +28,7 @@ export default function Form() {
       style={{ height: "100vh" }}
     >
       <div
-        className="center-block align-self-center gap-3"
+        className="login-form center-block align-self-center gap-3"
         style={{
           width: "396px",
           paddingLeft: "10px",

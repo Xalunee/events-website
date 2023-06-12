@@ -488,6 +488,14 @@ table {
 
 
 @media (max-width: 414px) {
+  .registration-form {
+    padding: 0 20px !important;
+  }
+
+  .login-form {
+    padding: 0 20px !important;
+  }
+
   .header {
     padding: 12px 20px;
     flex-direction: column;
@@ -560,17 +568,58 @@ table {
     min-width: 10px;
   }
 
+  .event-header h2 {
+    font-size: 24px;
+  }
+
   .event-img {
     width: auto;
     height: 229px;
+  }
+
+  .btn-more {
+    width: 50%;
+    font-size: 80%;
+  }
+
+  .btn-unsubscribe {
+    width: 40%;
+    font-size: 80%;
+  }
+
+  .btn-subscribe {
+    width: 40%;
+    font-size: 80%;
   }
 
   .modal-dialog {
     margin-left: 5% !important;
   }
 
+  
+
+  .modal-backdrop {
+    height: 100% !important;
+  }
+
   .modal-content {
-    width: 374px !important;
+    width: 95% !important;
+  }
+
+  textarea {
+    height: 100px !important;
+  }
+
+  .event-block input {
+    height: 40px !important;
+  }
+
+  .event-block input[type="file"] {
+    height: max-content !important;
+  }
+
+  .event-block label {
+    padding: 0.45rem 0.75rem !important;
   }
 
   .form-type-events > p {
@@ -613,5 +662,19 @@ table {
   .table-users {
     width: 374px;
     overflow: scroll;
+  }
+}
+
+@media (max-width: 380px) {
+  html, #root, .modal-backdrop {
+    width: 395px !important;
+  }
+
+  .modal-backdrop {
+    height: 100% !important;
+  }
+
+  .table-users {
+    width: 354px;
   }
 }
