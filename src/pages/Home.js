@@ -20,9 +20,9 @@ const Home = () => {
   const currentUser = currentUsers.find(
     (user) => user.id === localStorage.token
   );
-  const isAdmin = currentUser && currentUser.role === "admin" ? true : false;
+  const isAdmin = currentUser && currentUser.role === "Администратор" ? true : false;
   const isBlocked =
-    currentUser && currentUser.role === "blocked" ? true : false;
+    currentUser && currentUser.role === "Заблокирован" ? true : false;
   return (
     <>
       <Header></Header>

@@ -11,7 +11,7 @@ const Home = () => {
     (user) => user.id === localStorage.token
   );
   const isBlocked =
-    currentUser && currentUser.role === "blocked" ? true : false;
+    currentUser && currentUser.role === "Заблокирован" ? true : false;
   return (
     <>
       <Header />

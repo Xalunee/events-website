@@ -11,7 +11,7 @@ const Home = () => {
   const currentUser = currentUsers.find(
     (user) => user.id === localStorage.token
   );
-  const isAdmin = currentUser && currentUser.role === "admin" ? true : false;
+  const isAdmin = currentUser && currentUser.role === "Администратор" ? true : false;
   return (
     <>
       <Header />
@@ -31,7 +31,7 @@ const Home = () => {
             role="alert"
             style={{ maxWidth: "1000px" }}
           >
-            Просматривать данную страницу может только администратор.
+            <strong>Уважаемый пользователь!</strong> Просматривать данную страницу может только администратор.
             <button
               type="button"
               className="btn-close"

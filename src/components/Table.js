@@ -59,21 +59,21 @@ class Table extends Component {
                     type="button"
                     onClick={funcClick}
                   >
-                    admin
+                    Администратор
                   </button>
                   <button
                     className="dropdown-item"
                     type="button"
                     onClick={funcClick}
                   >
-                    member
+                    Пользователь
                   </button>
                   <button
                     className="dropdown-item"
                     type="button"
                     onClick={funcClick}
                   >
-                    blocked
+                    Заблокирован
                   </button>
                 </div>
               </div>
