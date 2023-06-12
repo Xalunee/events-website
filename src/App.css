@@ -385,6 +385,10 @@ pre {
   display: block !important;
 }
 
+.event-block {
+  padding-top: 24px;
+}
+
 .event-members {
   font-weight: 400;
 }
@@ -451,7 +455,6 @@ hr {
 
 #title {
   text-align: center;
-  /* font-family: arial, sans-serif; */
 }
 
 table {
@@ -462,7 +465,6 @@ table {
   text-align: center;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  /* border: 3px solid #ddd; */
   width: 100%;
 }
 
@@ -595,8 +597,6 @@ table {
   .modal-dialog {
     margin-left: 5% !important;
   }
-
-  
 
   .modal-backdrop {
     height: 100% !important;

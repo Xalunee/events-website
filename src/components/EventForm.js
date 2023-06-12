@@ -21,7 +21,7 @@ export default function EventForm(props) {
     if (imageUpload === null) return;
     const imageRef = ref(storage, `images/${unicName}`);
     uploadBytes(imageRef, imageUpload).then(() => {
-      alert('Изображение загруженно');
+      window.location.reload();
     });
   };
   const navigate = useNavigate();
@@ -53,7 +53,6 @@ export default function EventForm(props) {
     const dataOfRegistration = await registerEvent(formattedData);
     uploadImage(unicName);
     props.onHide();
-    alert("Мероприятие успешно создано!");
     document.querySelector(".event-form").reset();
   };
 

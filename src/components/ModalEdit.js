@@ -10,11 +10,21 @@ import addDays from "date-fns/addDays";
 import { changeEvent } from "../services/event.js";
 import Modal from "react-bootstrap/Modal";
 import { useEffect } from "react";
+import { storage } from "../services/init.js";
+import { ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 registerLocale("ru", ru); // register it with the name you want
 
 export default function ModalEdit(props) {
+  const [imageUpload, setImageUpload] = useState(null);
+  const uploadImage = (unicName) => {
+    if (imageUpload === null) return;
+    const imageRef = ref(storage, `images/${unicName}`);
+    uploadBytes(imageRef, imageUpload).then(() => {
+      window.location.reload();
+    });
+  };
   const { event } = props;
-
   const {
     register,
     handleSubmit,
@@ -24,11 +34,14 @@ export default function ModalEdit(props) {
     defaultValues: {
       name: event.name,
       description: event.description,
-      place: event.place
+      place: event.place,
     }
   });
 
   const onSubmit = async (data) => {
+    const name = imageUpload !== null ? imageUpload.name : '';
+    const unicName = `${name + v4()}`;
+    const image = name.length > 0 ? unicName : props.event.imageId;
     const options = {
       year: "numeric",
       month: "long",
@@ -45,8 +58,12 @@ export default function ModalEdit(props) {
       dateNum: Date.parse(date),
       user: props.event.user,
       members: props.event.members,
+      imageId: image,
     };
     const dataOfRegistration = await changeEvent(formattedData);
+    if (name.length > 0) {
+      uploadImage(unicName);
+    }
     props.onHide();
     document.querySelector(".event-form").reset();
   };
@@ -166,6 +183,12 @@ export default function ModalEdit(props) {
               minDate={addDays(new Date(), -7)}
               timeIntervals={1}
               dateFormat="d MMMM, yyyy г. h:mm"
+            />
+            <input
+              type="file"
+              onChange={(event) => {
+                setImageUpload(event.target.files[0]);
+              }}
             />
             <button className="btn btn-dark">Сохранить изменения</button>
           </form>

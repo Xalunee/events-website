@@ -34,12 +34,10 @@ class Table extends Component {
       return (
         <tr key={id}>
           <td>{index + 1}</td>
-          <td>{id}</td>
           <td>{surname}</td>
           <td>{firstname}</td>
           <td>{patronymic}</td>
           <td>{email}</td>
-          <td>{password}</td>
           <td className="role">{role}</td>
           {/* <button type="button" class="btn btn-secondary" style={{display: "inline"}}>Редактировать</button> */}
           {localStorage.token !== id ? (
@@ -102,12 +100,10 @@ class Table extends Component {
   renderTableHeader() {
     let header = [
       "id",
-      "токен",
       "фамилия",
       "имя",
       "отчество",
       "почта",
-      "пароль",
       "роль",
       "Дополнительно",
     ];
