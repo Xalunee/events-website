@@ -15,9 +15,11 @@ const AdminEvents = () => {
     const elementEvent = element.parentNode.parentNode;
     const elementEventOther = elementEvent.querySelector('.event-other');
     const elementImg = elementEvent.querySelector('.img-more');
+    const textDescription = elementEvent.querySelector('.event-other pre');
     if (elementEvent.classList.contains('collapsed')) {
       if (elementEvent && elementEventOther) {
         elementEvent.classList.remove('collapsed');
+        textDescription.classList.remove('hidden');
         elementEvent.classList.add('expanded');
         elementEvent.style.height = 'auto';
         elementEventOther.style.maxHeight = '1000px';
@@ -31,6 +33,7 @@ const AdminEvents = () => {
         elementEvent.classList.add('collapsed');
         elementImg.src = require("../assets/arrow\ down.png");
         setTimeout(() => {
+          textDescription.classList.add('hidden');
           elementEvent.style.height = '625px';
         }, 1500)
       }
@@ -88,7 +91,7 @@ const AdminEvents = () => {
                   <div className="event-other">
                     <div className="event-description">
                       <p className="title">Описание</p>
-                      <pre className="description-text">{event.description}</pre>
+                      <pre className="description-text hidden">{event.description}</pre>
                     </div>
                     <div className="event-date">
                       <p className="title">Дата и время</p>
@@ -212,7 +215,7 @@ const AdminEvents = () => {
                   <div className="event-other">
                     <div className="event-description">
                       <p className="title">Описание</p>
-                      <pre className="description-text">{event.description}</pre>
+                      <pre className="description-text hidden">{event.description}</pre>
                     </div>
                     <div className="event-date">
                       <p className="title">Дата и время</p>
@@ -341,7 +344,7 @@ const AdminEvents = () => {
                   <div className="event-other">
                     <div className="event-description">
                       <p className="title">Описание</p>
-                      <pre className="description-text">
+                      <pre className="description-text hidden">
                         {event.description}
                       </pre>
                     </div>
@@ -428,7 +431,7 @@ const AdminEvents = () => {
                   <div className="event-other">
                     <div className="event-description">
                       <p className="title">Описание</p>
-                      <p className="description-text">{event.description}</p>
+                      <p className="description-text hidden">{event.description}</p>
                     </div>
                     <div className="event-date">
                       <p className="title">Дата и время</p>

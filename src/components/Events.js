@@ -11,9 +11,11 @@ const Events = () => {
     const elementEvent = element.parentNode.parentNode;
     const elementEventOther = elementEvent.querySelector('.event-other');
     const elementImg = elementEvent.querySelector('.img-more');
+    const textDescription = elementEvent.querySelector('.event-other pre');
     if (elementEvent.classList.contains('collapsed')) {
       if (elementEvent && elementEventOther) {
         elementEvent.classList.remove('collapsed');
+        textDescription.classList.remove('hidden');
         elementEvent.classList.add('expanded');
         elementEvent.style.height = 'auto';
         elementEventOther.style.maxHeight = '1000px';
@@ -27,6 +29,7 @@ const Events = () => {
         elementEvent.classList.add('collapsed');
         elementImg.src = require("../assets/arrow\ down.png");
         setTimeout(() => {
+          textDescription.classList.add('hidden');
           elementEvent.style.height = '625px';
         }, 1500)
       }
@@ -82,7 +85,7 @@ const Events = () => {
                   <div className="event-other">
                     <div className="event-description">
                       <p className="title">Описание</p>
-                      <pre className="description-text">{event.description}</pre>
+                      <pre className="description-text hidden">{event.description}</pre>
                     </div>
                     <div className="event-date">
                       <p className="title">Дата и время</p>
@@ -165,7 +168,7 @@ const Events = () => {
                   <div className="event-other">
                     <div className="event-description">
                       <p className="title">Описание</p>
-                      <pre className="description-text">{event.description}</pre>
+                      <pre className="description-text hidden">{event.description}</pre>
                     </div>
                     <div className="event-date">
                       <p className="title">Дата и время</p>
@@ -253,7 +256,7 @@ const Events = () => {
                   <div className="event-other">
                     <div className="event-description">
                       <p className="title">Описание</p>
-                      <pre className="description-text">{event.description}</pre>
+                      <pre className="description-text hidden">{event.description}</pre>
                     </div>
                     <div className="event-date">
                       <p className="title">Дата и время</p>
@@ -290,7 +293,7 @@ const Events = () => {
                       <img src={require("../assets/arrow\ down.png")} className="img-more"></img>
                       Подробнее
                     </button>
-                    {localStorage.token &&
+                    {/* {localStorage.token &&
                     event.members.includes(localStorage.token) ? (
                       <button
                         type="button"
@@ -318,7 +321,7 @@ const Events = () => {
                       >
                         Я пойду!
                       </button>
-                    )}
+                    )} */}
                   </div>
                 </div>
               );
@@ -336,7 +339,7 @@ const Events = () => {
                   <div className="event-other">
                     <div className="event-description">
                       <p className="title">Описание</p>
-                      <pre className="description-text">{event.description}</pre>
+                      <pre className="description-text hidden">{event.description}</pre>
                     </div>
                     <div className="event-date">
                       <p className="title">Дата и время</p>

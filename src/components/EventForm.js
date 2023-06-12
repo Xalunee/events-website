@@ -61,7 +61,7 @@ export default function EventForm(props) {
   );
   let date = startDate;
   const filterPassedTime = (time) => {
-    const currentDate = addDays(new Date(), 1);
+    const currentDate = setHours(setMinutes(addDays(new Date(), 1), 0), 8);
     const selectedDate = new Date(time);
 
     return currentDate.getTime() < selectedDate.getTime();
@@ -154,8 +154,8 @@ export default function EventForm(props) {
               id="datepicker"
               placeholderText="Дата и время мероприятия"
               showTimeSelect
-              //filterTime={filterPassedTime}
-              minDate={addDays(new Date(), -31)}
+              filterTime={filterPassedTime}
+              minDate={addDays(new Date(), 1)}
               timeIntervals={10}
               dateFormat="d MMMM, yyyy г. h:mm"
             />
