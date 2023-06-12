@@ -81,9 +81,21 @@ body {
   width: 1344px;
 }
 
+.website-name::before {
+  top: -30%;
+  left: 0;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-image: url("assets/лого\ эк.svg");
+  content: "";
+}
+
 .website-name {
+  position: relative;
   font-size: 24px;
   line-height: 31px;
+  padding-left: 60px;
   margin-right: 24px;
 }
 
@@ -506,6 +518,7 @@ table {
     max-width: 414px;
   }
 
+  
   .links {
     justify-content: flex-start;
     align-items: flex-start;
@@ -513,12 +526,19 @@ table {
     height: auto;
     max-width: 374px;
   }
-
+  
   .link {
     align-self: flex-start;
   }
+  
+  .website-name::before {
+    top: -15%;
+    width: 42px;
+    height: 42px;
+  }
 
   .website-name {
+    padding-left: 50px;
     margin-bottom: 10px;
   }
 
