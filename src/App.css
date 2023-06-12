@@ -518,17 +518,25 @@ table {
     max-width: 414px;
   }
 
-  
   .links {
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
     height: auto;
     max-width: 374px;
+    gap: 3px;
   }
   
   .link {
     align-self: flex-start;
+  }
+
+  .link > span {
+    line-height: 0px;
+  }
+
+  .links-end {
+    gap: 6px;
   }
   
   .website-name::before {

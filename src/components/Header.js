@@ -10,8 +10,8 @@ export default function Header() {
   const currentUser = currentUsers.find(
     (user) => user.id === localStorage.token
   );
-  const isAdmin = currentUser && currentUser.role === "admin" ? true : false;
-  const adminText = isAdmin ? "(Админ)" : "";
+  const isAdmin = currentUser && currentUser.role === "Администратор" ? true : false;
+  const adminText = isAdmin ? "(Администратор)" : "";
 
   return (
     <header className="header">
