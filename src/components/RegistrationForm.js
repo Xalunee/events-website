@@ -38,6 +38,7 @@ export default function Form() {
         <img
           style={{ width: "45px" }}
           src={require("../assets/logo-lock.PNG")}
+          alt=""
         />
         <h2 style={{ fontSize: "2rem", marginTop: "10px" }}>
           Зарегистрироваться

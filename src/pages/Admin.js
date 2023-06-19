@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import MyEvents from "../components/MyEvents";
-import EventForm from "../components/EventForm";
 import Table from "../components/Table";
 import { useSelector } from "react-redux";
 
 const Home = () => {
-  const [modalShow, setModalShow] = useState(false);
   const currentUsers = useSelector((state) => state.users.users);
   const currentUser = currentUsers.find(
     (user) => user.id === localStorage.token

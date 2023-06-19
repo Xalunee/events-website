@@ -7,8 +7,6 @@ import {
   setDoc,
   deleteDoc,
   doc,
-  getDocs,
-  updateDoc,
 } from "firebase/firestore";
 import { actions } from "../slices/usersSlice.js";
 

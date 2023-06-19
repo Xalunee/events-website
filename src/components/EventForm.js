@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import DatePicker, { registerLocale } from "react-datepicker";
-import ru from "date-fns/locale/ru"; // the locale you want
+import ru from "date-fns/locale/ru"; // локализация языка
 import "react-datepicker/dist/react-datepicker.css";
 import "../App.css";
 import setHours from "date-fns/setHours";
@@ -13,7 +12,7 @@ import Modal from "react-bootstrap/Modal";
 import { storage } from "../services/init.js";
 import { ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
-registerLocale("ru", ru); // язык для перевода
+registerLocale("ru", ru); // регистрация локали с необходимым именем
 
 export default function EventForm(props) {
   const [imageUpload, setImageUpload] = useState(null);
@@ -24,7 +23,6 @@ export default function EventForm(props) {
       window.location.reload();
     });
   };
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -159,12 +157,12 @@ export default function EventForm(props) {
               timeIntervals={10}
               dateFormat="d MMMM, yyyy г. h:mm"
             />
-            <input
-              type="file"
-              onChange={(event) => {
+            <div class="input-group custom-file-button">
+		          <label class="input-group-text" for="inputGroupFile">Выбирите файл</label>
+		          <input type="file" class="form-control" id="inputGroupFile" onChange={(event) => {
                 setImageUpload(event.target.files[0]);
-              }}
-            />
+              }} placeholder="Type some text"></input>
+	          </div>
             <button className="btn btn-dark">Создать</button>
           </form>
         </div>

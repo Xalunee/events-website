@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import DatePicker, { registerLocale } from "react-datepicker";
-import ru from "date-fns/locale/ru"; // the locale you want
+import ru from "date-fns/locale/ru"; // локализация языка
 import "react-datepicker/dist/react-datepicker.css";
 import "../App.css";
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
 import addDays from "date-fns/addDays";
 import { changeEvent } from "../services/event.js";
 import Modal from "react-bootstrap/Modal";
@@ -13,7 +11,7 @@ import { useEffect } from "react";
 import { storage } from "../services/init.js";
 import { ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
-registerLocale("ru", ru); // register it with the name you want
+registerLocale("ru", ru); // регистрация локали с необходимым именем
 
 export default function ModalEdit(props) {
   const [imageUpload, setImageUpload] = useState(null);
@@ -184,12 +182,12 @@ export default function ModalEdit(props) {
               timeIntervals={1}
               dateFormat="d MMMM, yyyy г. h:mm"
             />
-            <input
-              type="file"
-              onChange={(event) => {
+            <div class="input-group custom-file-button">
+		          <label class="input-group-text" for="inputGroupFile">Выбирите файл</label>
+		          <input type="file" class="form-control" id="inputGroupFile" onChange={(event) => {
                 setImageUpload(event.target.files[0]);
-              }}
-            />
+              }} placeholder="Type some text"></input>
+	          </div>
             <button className="btn btn-dark">Сохранить изменения</button>
           </form>
         </div>

@@ -8,7 +8,6 @@ import {
   setDoc,
   deleteDoc,
   doc,
-  where,
   onSnapshot,
   getDocs,
 } from "firebase/firestore";
@@ -18,7 +17,7 @@ const eventsCollection = collection(db, "events");
 
 export const registerEvent = async (data) => {
   const isUserUniqueQuery = query(eventsCollection);
-  const isUserUnique = await getDocs(isUserUniqueQuery);
+  await getDocs(isUserUniqueQuery);
 
   const userRef = await addDoc(eventsCollection, data);
   const userSnapshot = await getDoc(userRef);
