@@ -293,35 +293,6 @@ const Events = () => {
                       <img src={require("../assets/arrow\ down.png")} className="img-more"></img>
                       Подробнее
                     </button>
-                    {/* {localStorage.token &&
-                    event.members.includes(localStorage.token) ? (
-                      <button
-                        type="button"
-                        className="btn-subscribe"
-                        onClick={() => {
-                          const copyMembers = [...event.members];
-                          const userIndex = copyMembers.indexOf(
-                            localStorage.token
-                          );
-                          copyMembers.splice(userIndex, userIndex);
-                          changeEvent({ ...event, members: copyMembers });
-                        }}
-                      >
-                        Я пойду!
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="btn-unsubscribe"
-                        onClick={() => {
-                          const copyMembers = [...event.members];
-                          copyMembers.push(localStorage.token);
-                          changeEvent({ ...event, members: copyMembers });
-                        }}
-                      >
-                        Я пойду!
-                      </button>
-                    )} */}
                   </div>
                 </div>
               );

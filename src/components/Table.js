@@ -3,9 +3,8 @@ import { removeUser, updateUser } from "../services/users";
 
 class Table extends Component {
   constructor(props) {
-    super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
+    super(props);
     this.state = {
-      //state is by default an object
       users: props.users,
     };
   }
@@ -13,7 +12,7 @@ class Table extends Component {
   renderTableData() {
     return this.state.users.map((user, index) => {
       const { id, firstname, surname, patronymic, email, password, role } =
-        user; //destructuring
+        user;
       const funcClick = (e) => {
         const newRole = e.target.textContent;
         const data = {
@@ -39,7 +38,6 @@ class Table extends Component {
           <td>{patronymic}</td>
           <td>{email}</td>
           <td className="role">{role}</td>
-          {/* <button type="button" class="btn btn-secondary" style={{display: "inline"}}>Редактировать</button> */}
           {localStorage.token !== id ? (
             <td className="d-flex gap-2">
               <div className="dropdown">
@@ -84,6 +82,7 @@ class Table extends Component {
                   const parentElement = e.target.parentElement.parentElement;
                   parentElement.remove();
                   removeUser(id);
+                  window.location.reload();
                 }}
               >
                 Удалить

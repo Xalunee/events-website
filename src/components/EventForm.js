@@ -13,7 +13,7 @@ import Modal from "react-bootstrap/Modal";
 import { storage } from "../services/init.js";
 import { ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
-registerLocale("ru", ru); // register it with the name you want
+registerLocale("ru", ru); // язык для перевода
 
 export default function EventForm(props) {
   const [imageUpload, setImageUpload] = useState(null);

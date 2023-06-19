@@ -42,24 +42,6 @@ export const getEvents = async () => {
     });
     store.dispatch(actions.setEvents(events));
   });
-
-  // const queryDocs = await getDocs(queryEvents);
-  // const dataOfEvents = queryDocs.docs;
-  // const events = dataOfEvents.map((data) => {
-  //   const { fields } = data._document.data.value.mapValue;
-  //   const entries = Object.entries(fields);
-  //   const mapEntries = entries.reduce((acc, [field, value]) => {
-  //     const newValue = Object.values(value)[0];
-  //     if (typeof newValue === 'object') {
-  //       const members = newValue.values.map((value) => value.stringValue);
-  //       return ([...acc, [field, members]]);
-  //     }
-  //     return ([...acc, [field, newValue]]);
-  //   }, []);
-  //   const objectOfEntries = Object.fromEntries(mapEntries);
-  //   return objectOfEntries
-  // })
-  // return events;
 };
 
 export const changeEvent = async (data) => {
@@ -76,7 +58,6 @@ export const removeEvent = async (data) => {
     console.log(data)
     const eventRef = doc(db, "events", data.id);
     await deleteDoc(eventRef); // удаляем документ мероприятия
-    console.log("Мероприятие было успешно удалено");
   } catch (e) {
     console.log(("Удалить мероприятие не удалось"));
   }

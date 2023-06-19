@@ -12,7 +12,7 @@ export default function Form() {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const dataOfRegistration = await registerUser({...data, role: "member" });
+    const dataOfRegistration = await registerUser({...data, role: "Пользователь" });
     console.log(dataOfRegistration)
     localStorage.token = dataOfRegistration.id;
     localStorage.firstname = dataOfRegistration.firstname;
