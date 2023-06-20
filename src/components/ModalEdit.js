@@ -177,9 +177,9 @@ export default function ModalEdit(props) {
               id="datepicker"
               placeholderText="Дата и время мероприятия"
               showTimeSelect
-              //filterTime={filterPassedTime}
-              minDate={addDays(new Date(), -7)}
-              timeIntervals={1}
+              filterTime={filterPassedTime}
+              minDate={addDays(new Date(), 1)}
+              timeIntervals={10}
               dateFormat="d MMMM, yyyy г. h:mm"
             />
             <div class="input-group custom-file-button">
