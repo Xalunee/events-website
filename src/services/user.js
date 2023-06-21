@@ -40,7 +40,7 @@ export const loginUser = async (data) => {
   );
   const userSnapshot = await getDocs(userQuery);
   if (!(userSnapshot.size === 1)) {
-    alert("404");
+    alert("Неверные данные");
   }
   const newUserObj = {
     ...userSnapshot.docs[0].data(),
